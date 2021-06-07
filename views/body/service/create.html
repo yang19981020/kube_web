@@ -1,0 +1,176 @@
+<div class="row">
+
+  <div class="">
+    <div class="box-content">
+      <h4 class="box-title" id="boxTitle">Service</h4>
+      <form id="commentForm" method="post" resourcetype="Service" postresourceurl="/ratel/create/service?method=Create" novalidate="novalidate">
+        <div id="tabsleft" class="tabbable tabs-left">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#table-metadata" data-toggle="tab" aria-expanded="true">Metadata</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="table-metadata">
+              <div>
+
+
+
+
+
+
+
+
+
+
+                <h4></h4>
+                <div class="row small-spacing">
+                  <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                      <label>选择集群: </label>
+                      <select name="clusterSelect" style="background-color: transparent; color: whitesmoke" id="clusterSelect" class="clusterSelect required" getresourceurl="/ratel/getNamespaces" aria-required="true">
+
+                        <option selected="true"></option>
+
+                        <option style="color: black;">
+                          cluster1
+                        </option>
+
+
+                      </select>
+
+                      <div id="namespaceDiv" style="display: none; width: 400px;">
+
+                        <label>Namespace: </label>
+
+                        <select onchange="getResourceItem('resourceName','/ratel/get','true','resourceNameDiv','')" name="namespaceSelect" style="background-color: transparent; color: whitesmoke;width: 200px" id="namespaceSelect" class="namespaceSelect select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                          <option selected="true"></option>
+                        </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-namespaceSelect-container"><span class="select2-selection__rendered" id="select2-namespaceSelect-container" title=""></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+
+                      </div>
+
+
+                      <div id="resourceTypeDiv" style="width: 400px;">
+                        <label>资源类型: </label>
+                        <select onchange="getResourceItem('resourceName','/ratel/get','true','resourceNameDiv','')" name="resourceType" style="background-color: transparent; color: whitesmoke;width: 200px" id="resourceType" class="resourceType">
+
+                          <option selected="true">Deployments</option>
+                          <option>StatefulSets</option>
+                          <option>DaemonSets</option>
+                          <option>ExternalName</option>
+
+                        </select>
+                      </div>
+
+                      <div id="resourceNameDiv" style="display: none; width: 400px;">
+
+                        <label>资源名称: </label>
+                        <select onchange="getPorts('service-table','/ratel/get','create-service','#service-port-count','Create')" name="resourceName" style="background-color: transparent; color: whitesmoke;width: 200px" id="resourceName" class="resourceName">
+                          <option selected="true"></option>
+                        </select>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+            </div>
+
+            <div class="form-group">
+              <label for="labels-table">Labels: </label>
+              <table id="labels-table" class="table table-striped table-bordered display">
+                <thead>
+                <tr>
+                  <th style="color: whitesmoke">Key</th>
+                  <th style="color: whitesmoke">Value</th>
+                  <th class="ico icon-list-add">
+                    <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                      <a style="color: whitesmoke" href="#" id="add-label">添加</a>
+                    </button>
+                  </th>
+                </tr>
+                </thead>
+                <tbody id="labels-table-td">
+
+                <input type="hidden" id="label-count" name="label-count" value="1" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <tr name="label-tr">
+
+                  <td>
+                    <input type="text" class="required" id="label-key-1" placeholder="Label Key" name="label-key-1" value="app" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                  </td>
+                  <td>
+                    <input type="text" class="required" id="label-value-1" placeholder="Label Value" name="label-value-1" required="" value="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <div id="service-temp">
+                <div class="form-group">
+                  <div id="service-check">
+                    <div class="container-ports">
+                      Service名称:<input type="text" class="required" id="service-name" placeholder="服务名称" name="service-name" zgotmplz="" value="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                      Service类型:
+                      <select name="service-type" id="service-type" onchange="serviceTypeChange('service-type','externalname-domain','service-table')">
+                        <option selected="true">ClusterIP</option>
+                        <option>NodePort</option>
+                        <option>ExternalName</option>
+                        <option>ExternalIPs</option>
+
+                        <option>None</option>
+
+
+                      </select>
+                      会话保持时间:<input type="text" class="number" id="session-timeout" placeholder="空为关闭会话保持" name="session-timeout" value="" onkeyup="return inputSapceTrim(event,this);">
+
+                    </div>
+                    <div id="externalname-domain" style="display: none">
+                      <input type="text" class="required" placeholder="请输入外部域名或IP，IP地址逗号分隔" name="externalname-domain" value="" style="border-color: whitesmoke" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </div>
+                    <table id="service-table" class="table table-striped table-bordered display">
+                      <thead>
+                      <tr>
+                        <th style="color: whitesmoke">端口名称</th>
+                        <th style="color: whitesmoke">协议</th>
+                        <th style="color: whitesmoke">端口</th>
+                        <th style="color: whitesmoke">目标端口</th>
+                        <th style="color: whitesmoke">NodePort</th>
+                        <th class="ico icon-list-add">
+                          <button id="addServiceTr" type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                            <a style="color: whitesmoke" id="addServicePort" onclick="addEle('service-port-count','servicePort','service-table','portID', 'table','false','')">添加</a>
+                          </button>
+                        </th>
+                      </tr>
+                      </thead>
+                      <tbody id="service-table-td">
+
+
+                      </tbody>
+                      <input type="hidden" id="service-port-count" name="service-port-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                    </table>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+            <ul class="pager wizard">
+              <li class="next finish disabled">
+                <div>
+                  <button style="height: 50px;" type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">
+                    <input id="submit" type="submit" value="Create" onkeyup="return inputSapceTrim(event,this);">
+                  </button>
+                  <a id="viewYaml" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light" style="color: whitesmoke;height: 50px;margin: 0 0 0 20px;" onclick="viewYaml('POST', '/ratel/create/service?yaml=true')">View Yaml</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form></div>
+  </div>
+
+</div>

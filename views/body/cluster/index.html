@@ -1,0 +1,296 @@
+<div class="layui-body">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>集群信息</legend>
+    </fieldset>
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md12" id="resource" style="width: 600px;height:400px;"></div>
+        <div class="layui-col-md3" id="self_info" style="width: 400px;height:300px;"></div>
+    </div>
+
+    <div class="layui-bg-gray" style="padding: 30px;">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md4">
+                <div class="layui-panel">
+                    <div class="box-content">
+                        <h4 class="box-title text-info"><span class="layui-badge layui-bg-green">Nodes</span></h4>
+
+                        <div class="dropdown js__drop_down">
+                            <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+                            <ul class="sub-menu">
+
+                                <li><a href="/node_list">查看详情</a></li>
+                            </ul>
+
+                        </div>
+
+                        <div class="content widget-stat">
+
+
+                            <div class="statistics-box with-icon">
+                                <i class="ico fa fa-bank text-info"></i>
+                                <h2 class="counter text-danger" id="node_number"></h2>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-panel">
+                    <div class="box-content">
+                        <h4 class="box-title text-success"><span class="layui-badge layui-bg-blue">Services</span></h4>
+
+                        <div class="dropdown js__drop_down">
+                            <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+                            <ul class="sub-menu">
+                                <li><a href="/service">查看详情</a></li>
+                            </ul>
+
+                        </div>
+
+                        <div class="content widget-stat">
+
+
+                            <div class="statistics-box with-icon">
+                                <i class="ico menu-icon fa fa-exchange text-success"></i>
+                                <h2 class="counter text-danger" id="services_number"></h2>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-panel">
+                    <div class="box-content">
+                        <h4 class="box-title text-orange"><span class="layui-badge layui-bg-orange">Pods</span></h4>
+
+                        <div class="dropdown js__drop_down">
+                            <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+                            <ul class="sub-menu">
+                                <li><a href="/pod">查看详情</a></li>
+                            </ul>
+
+                        </div>
+
+                        <div class="content widget-stat">
+
+
+                            <div class="statistics-box with-icon">
+                                <i class="ico fa fa-soccer-ball-o text-orange"></i>
+                                <h2 class="counter text-danger" id="pod_number"></h2>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-panel">
+                    <div class="box-content">
+                        <h4 class="box-title text-warning"><span class="layui-badge layui-bg-cyan">DaemonSets</span></h4>
+
+                        <div class="dropdown js__drop_down">
+                            <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+                            <ul class="sub-menu">
+                                <li><a href="/daemon_set">查看详情</a></li>
+                            </ul>
+
+                        </div>
+
+                        <div class="content widget-stat">
+                            <div id="traffic-sparkline-chart-4" class="left-content  margin-top-15"></div>
+
+                            <div class="statistics-box with-icon">
+                                <i class="ico mdi mdi-fire text-warning"></i>
+                                <h2 class="counter text-danger" id="daemon_number"></h2>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-panel">
+                    <div class="box-content">
+                        <h4 class="box-title text-pink"><span class="layui-badge">Deployments</span></h4>
+
+                        <div class="dropdown js__drop_down">
+                            <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+                            <ul class="sub-menu">
+                                <li><a href="/deployment">查看详情</a></li>
+                            </ul>
+
+                        </div>
+
+                        <div class="content widget-stat">
+
+
+                            <div class="statistics-box with-icon">
+                                <i class="ico mdi mdi-cube-outline text-pink"></i>
+                                <h2 class="counter text-danger" id="deployment_number"></h2>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-panel">
+                    <div class="box-content">
+                        <h4 class="box-title text-white"><span class="layui-badge layui-bg-black">StatefulSets</span></h4>
+
+                        <div class="dropdown js__drop_down">
+                            <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+                            <ul class="sub-menu">
+                                <li><a href="/stateful_set">查看详情</a></li>
+                            </ul>
+
+                        </div>
+
+                        <div class="content widget-stat">
+                            <div id="" class="left-content margin-top-30"></div>
+
+                            <div class="statistics-box with-icon">
+                                <i class="ico fa fa-deaf"></i>
+                                <h2 class="counter text-danger" id="stateful_number"></h2>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        var settings = {
+            "url": "/resource/cluster_info",
+            "method": "GET",
+            "timeout": 0,
+        };
+        $.ajax(settings).done(function (response) {
+            console.log(response)
+            var node_number = document.getElementById("node_number");
+            node_number.innerText= response.data[0].node
+            var services_number = document.getElementById("services_number");
+            services_number.innerText = response.data[0].service
+            var stateful_number = document.getElementById("stateful_number");
+            stateful_number.innerText = response.data[0].statefulset
+            var deployment_number = document.getElementById("deployment_number");
+            deployment_number.innerText = response.data[0].deployment
+            var daemon_number = document.getElementById("daemon_number");
+            daemon_number.innerText = response.data[0].daemonset
+            var pod_number = document.getElementById("pod_number");
+            pod_number.innerText = response.data[0].pod
+
+            // resource 指定图表的配置项和数据
+            var resourceMap = echarts.init(document.getElementById('resource'),'infographic');
+            var option;
+            option = {
+                title: {
+                    text: '资源类型占比',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    left: 'center',
+                    top: 'bottom',
+                    data: ['Nodes', 'Services', 'Pods', 'DaemonSets', 'Deployments', 'StatefulSets']
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                series: [
+                    {
+                        name: '半径模式',
+                        type: 'pie',
+                        radius: [40, 150],
+                        center: ['45%', '50%'],
+                        roseType: 'radius',
+                        itemStyle: {
+                            borderRadius: 5
+                        },
+                        label: {
+                            show: false,
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                            }
+                        },
+                        data: [
+                            {value: response.data[0].node, name: 'Nodes'},
+                            {value: response.data[0].service, name: 'Services'},
+                            {value: response.data[0].pod, name: 'Pods'},
+                            {value: response.data[0].daemonset, name: 'DaemonSets'},
+                            {value: response.data[0].deployment, name: 'Deployments'},
+                            {value: response.data[0].statefulset, name: 'StatefulSets'}
+                        ]
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            resourceMap.setOption(option);
+        });
+        // self map
+        var get_self = {
+            "url": "/resource/system_info",
+            "method": "GET",
+            "timeout": 0,
+        };
+        $.ajax(get_self).done(function (response) {
+            var self_infoMap = echarts.init(document.getElementById('self_info'),'infographic');
+            var option = {
+                xAxis: {
+                    type: 'category',
+                    data: ['cpu %', 'mem %']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: [
+                        {value: response.data[0].cpu,itemStyle: {color: '#99CCFF'}},
+                        {value: response.data[0].mem,itemStyle: {color: '#FF9900'}},
+                    ],
+                    type: 'bar',
+                    showBackground: true,
+                    backgroundStyle: {
+                        color: 'rgba(180, 180, 180, 0.2)'
+                    }
+                }]
+            };
+            self_infoMap.setOption(option);
+        });
+    });
+</script>

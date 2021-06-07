@@ -1,0 +1,1869 @@
+<div class="row">
+
+  <div class="">
+    <div class="box-content">
+      <h4 class="box-title">Basic Information</h4>
+      <form id="commentForm" method="post" resourcetype="DaemonSets" postresourceurl="/ratel/create/daemonset?method=Create" novalidate="novalidate">
+        <div id="tabsleft" class="tabbable tabs-left">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#table-metadata" data-toggle="tab" aria-expanded="true">Metadata</a></li>
+            <li><a href="#table-affinity" data-toggle="tab">Affinity</a></li>
+            <li><a href="#table-volumes" data-toggle="tab">Volumes</a></li>
+            <li><a href="#table-containers" data-toggle="tab">Containers</a></li>
+            <li><a href="#table-init-containers" data-toggle="tab">Init Containers</a></li>
+            <li><a href="#table-services" data-toggle="tab">Services</a></li>
+            <li><a href="#table-ingress" data-toggle="tab">Ingress</a></li>
+          </ul>
+          <ul class="pager wizard">
+            <li class="previous first disabled"><a href="javascript:;">First</a></li>
+            <li class="previous disabled"><a href="javascript:;">Previous</a></li>
+            <li class="next last"><a href="javascript:;">Last</a></li>
+            <li class="next"><a href="javascript:;">Next</a></li>
+            <li class="next finish hidden">
+
+
+
+
+
+
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="table-metadata">
+              <div>
+                <div class="row small-spacing">
+                  <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                      <label>选择集群: </label>
+                      <select name="clusterSelect" style="background-color: transparent; color: whitesmoke" id="clusterSelect" class="clusterSelect required" getresourceurl="/ratel/getNamespaces" aria-required="true">
+                        <option selected="true"></option>
+
+                        <option style="color: black;">
+                          cluster1
+                        </option>
+
+                      </select>
+                      <div id="namespaceDiv" style="display: none; width: 400px;">
+                        <label>Namespace: </label>
+                        <select name="namespaceSelect" style="width: 200px; background-color: black; color: whitesmoke" id="namespaceSelect" class="singleSelect select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                        </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 200px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-namespaceSelect-container"><span class="select2-selection__rendered" id="select2-namespaceSelect-container"></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                      </div>
+
+                    </div>
+                    <div class="form-group">
+                      <div class="container-ports">
+                        <label for="deployment-name">Name: </label>
+                        <input type="text" placeholder="请输入Deployment名字" id="deployment-name" name="deployment-name" class="required" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>重启策略: </label>
+                      <select name="restartPolicy" style="background-color: transparent; color: whitesmoke" id="restartPolicy" class="restartPolicy required" aria-required="true">
+                        <option selected="true">Always</option>
+
+
+                      </select>
+                    </div>
+
+                    <div>
+                      <label>DNS策略: </label>
+                      <select name="dnsPolicy" style="background-color: transparent; color: whitesmoke" id="dnsPolicy" class="DNSPolicy required" aria-required="true">
+                        <option selected="true">ClusterFirst</option>
+                        <option>Default</option>
+                        <option>ClusterFirstWithHostNet</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label>节点故障停留时间(秒,<a style="color: yellow;">Taint优先级高</a>):</label>
+                      <input id="retain-time" name="retain-time" placeholder="停留时间" value="300" style="width: 50px" onkeyup="return inputSapceTrim(event,this);">
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-4 col-xs-12">
+
+
+
+                    <div class="switch primary"><input type="checkbox" onclick="healthCheck('runUserGroup')" id="runUserGroup" name="runUserGroup" onkeyup="return inputSapceTrim(event,this);"><label for="runUserGroup">指定运行Pod用户</label></div>
+                    <div id="runUserGroup-check" class="container-ports" style="display: none">
+                      runAsUser:<input name="runAsUser" id="runAsUser" class="required number" style="width: 50px; margin: 0 15px 0 0;" placeholder="User ID" value="1001" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                      fsGroup:<input name="fsGroup" id="fsGroup" style="width: 80px; margin: 0 15px 0 0;" class="number" placeholder="fsGroup ID" value="1001" onkeyup="return inputSapceTrim(event,this);">
+                    </div>
+                    <label>更新策略: </label>
+                    <div class="knob-wrap">
+                      <div id="updatePolicy" style="width: 400px;">
+                        <select name="update-policy" style="background-color: transparent; color: whitesmoke" id="update-policy" class="update-policy">
+
+
+                          <option selected="true">RollingUpdate</option>
+
+
+
+                          <option>OnDelete</option>
+
+
+                        </select>
+                      </div>
+                      <div id="rollingUpdateOption" class="container-ports" style="margin: 20px 0 0 0;">
+
+                        <div>
+                          <label>maxUnavailable:</label>
+                          <a href="javascript:;" onclick="inputValueModify('maxUnavailable','minus')"><i class="fa fa-minus-circle" aria-hidden="true" style="color: whitesmoke"></i></a>
+
+                          <input id="maxUnavailable" name="maxUnavailable" placeholder="最大不可用" value="1" style="width: 40px" onkeyup="return inputSapceTrim(event,this);">
+
+                          <a href="javascript:;" onclick="inputValueModify('maxUnavailable','plus')"><i class="fa fa-plus-circle" aria-hidden="true" style="color: whitesmoke"></i></a>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="form-group">
+                  <div>
+                    <div style="width: 300px;">
+                      <label for="image-pull-secret">私有仓库Secret: </label>
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" target="_blank" href="/ratel/create/secret">添加</a>
+                      </button>
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" onclick="flushTls('image-pull-secret','/ratel/getSecret?secretType=kubernetes.io/dockerconfigjson')">刷新</a>
+                      </button>
+                      <div id="image-pull-secret-select-div">
+                        <div class="fs-wrap multiple"><div class="fs-label-wrap"><div class="fs-label" title=" ===请选择=== "> ===请选择=== </div><span class="fs-arrow"></span></div><div class="fs-dropdown hidden"><div class="fs-search"><input type="search" placeholder="搜索"></div><div class="fs-options"></div><div class="btnFixed"><button class="buttonDefault" id="selectAllBtn" type="button">全选</button><button class="buttonDefault" id="clearAllBtn" type="button">清空</button></div></div><select name="image-pull-secret" style="background-color: transparent; color: whitesmoke" id="image-pull-secret" class="namespaceSelect visibility-hidden" multiple="multiple">
+                        </select></div>
+                      </div>
+                    </div>
+                    <div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div>
+                    <label for="serviceAccountName">ServiceAccount: </label>
+                    <select name="serviceAccountName" style="background-color: transparent; color: whitesmoke" id="serviceAccountName" class="serviceAccountName">
+                    </select>
+                    <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                      <a style="color: whitesmoke" target="_blank" href="/ratel/create/serviceaccount">添加</a>
+                    </button>
+                    <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                      <a style="color: whitesmoke" onclick="flushTls('serviceAccountName','/ratel/getServiceAccount')">刷新</a>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <hr>
+
+              <div class="form-group">
+                <label for="labels-table">Labels: </label>
+                <input type="hidden" id="label-count" name="label-count" value="1" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="labels-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">Key</th>
+                    <th style="color: whitesmoke">Value</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" href="#" id="add-label">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="labels-table-td">
+                  <tr name="label-tr">
+                    <td>
+                      <input type="text" class="required" id="label-key-1" placeholder="Label Key" name="label-key-1" value="app" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </td>
+                    <td>
+                      <input type="text" class="required" id="label-value-1" placeholder="Label Value" name="label-value-1" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </td>
+                    <td>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="form-group">
+                <label for="annotations-table">Annotations: </label>
+                <input type="hidden" id="annotation-count" name="annotation-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="annotations-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">Key</th>
+                    <th style="color: whitesmoke">Value</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" href="#" id="add-annotation">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="annotations-table-td">
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="form-group">
+                <label for="labels-table">Pod Selectors: </label>
+                <input type="hidden" id="selector-count" name="selector-count" value="1" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="selectors-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">Key</th>
+                    <th style="color: whitesmoke">Value</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" href="#" id="add-selector">添加</a>
+                      </button>
+
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="selectors-table-td">
+                  <tr name="selector-tr">
+                    <td>
+                      <input type="text" class="required" id="selector-key-1" placeholder="Selector Key" name="selector-key-1" value="app" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </td>
+                    <td>
+                      <input type="text" class="required" id="selector-value-1" placeholder="Selector Value" name="selector-value-1" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </td>
+                    <td>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="form-group">
+                <label for="pod-annotations-table">Pod Annotations: </label>
+                <input type="hidden" id="pod-annotation-count" name="pod-annotation-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="pod-annotations-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">Key</th>
+                    <th style="color: whitesmoke">Value</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" href="#" id="add-pod-annotation">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="pod-annotations-table-td">
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="form-group">
+                <label for="labels-table">HostAliases: </label>
+                <input type="hidden" id="hosts-count" name="hosts-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="hosts-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">IP</th>
+                    <th style="color: whitesmoke">Hostname</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" href="#" id="add-hosts">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="hosts-table-td">
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="form-group">
+                <div class="switch primary"><input type="checkbox" onclick="healthCheck('kernel-table')" id="kernel-table" name="kernel-table" onkeyup="return inputSapceTrim(event,this);"><label for="kernel-table">内核配置: <i style="margin: 0 0px 0 20px; color: yellow" class="fa fa-warning item-icon item-icon-right">需要集群允许内核配置</i></label></div>
+
+                <input type="hidden" id="kernel-count" name="kernel-count" value="2" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="kernel-table-check" class="table table-striped table-bordered display" style="display: none">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">Key</th>
+                    <th style="color: whitesmoke">Value</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" href="#" id="add-kernel">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="kernel-table-td">
+                  <tr name="kernel-tr" id="kernel-1">
+                    <td>
+                      <input type="text" class="required" id="kernel-key-1" placeholder="Selector Key" name="kernel-key-1" value="net.core.somaxconn" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </td>
+                    <td>
+                      <input type="text" class="required" id="kernel-value-1" placeholder="Selector Value" name="kernel-value-1" value="16384" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-xs waves-effect waves-light" id="delete-kernel-1" onclick="deleteLabel('kernel-1')">删除</button>
+                    </td>
+                  </tr>
+                  <tr name="kernel-tr" id="kernel-2">
+                    <td>
+                      <input type="text" class="required" id="kernel-key-2" placeholder="Kernel Key" name="kernel-key-2" value="net.ipv4.tcp_max_syn_backlog" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </td>
+                    <td>
+                      <input type="text" class="required" id="kernel-value-2" placeholder="Kernel Value" name="kernel-value-2" value="16384" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-xs waves-effect waves-light" id="delete-kernel-2" onclick="deleteLabel('kernel-2')">删除</button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div>
+                <div class="switch primary node-selector-label">
+                  <input type="checkbox" onclick="nodeAffinity('node-selector','/ratel/info/nodeLabels?resourceName=all')" id="node-selector" name="node-selector" onkeyup="return inputSapceTrim(event,this);">
+                  <label for="node-selector">部署具有以下标签的节点上:</label>
+                </div>
+                <div id="node-selector-check" style="display: none">
+                  <div style="width: 300px">
+                    <select id="node-selector-select" name="node-selector-select" multiple="multiple" style="display: none">
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="switch primary">
+                  <input type="checkbox" onclick="healthCheck('taint-table')" id="taint-table" name="taint-table" onkeyup="return inputSapceTrim(event,this);">
+                  <label for="taint-table">容忍:</label>
+                </div>
+                <input type="hidden" id="taint-count" name="taint-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="taint-table-check" class="table table-striped table-bordered display" style="display: none">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">Key</th>
+                    <th style="color: whitesmoke">Operator</th>
+                    <th style="color: whitesmoke">Value</th>
+                    <th style="color: whitesmoke">Effect</th>
+                    <th style="color: whitesmoke">TolerationSeconds</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" id="addTaint" onclick="addTaint()">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="taint-table-td">
+                  </tbody>
+                </table>
+              </div>
+              <h6 style="color: yellow">Node亲和力快捷键</h6>
+
+              <div>
+                <div class="switch primary node-affinity-label">
+                  <input type="checkbox" onclick="nodeAffinity('nodeaffinity-preferred-select','/ratel/info/nodeLabels?resourceName=all')" id="nodeaffinity-preferred-select" name="nodeaffinity-preferred-select" onkeyup="return inputSapceTrim(event,this);">
+                  <label for="nodeaffinity-preferred-select">尽量部署在具有以下标签的节点:</label>
+                </div>
+                <div id="nodeaffinity-preferred-select-check" style="display: none">
+                  <div style="width: 300px">
+                    <select onchange="insertValue2Table('nodeaffinity-preferred-select-select','nodeaffinity-notpreferred-select-select','nodeaffinity-preferred-table')" id="nodeaffinity-preferred-select-select" name="nodeaffinity-preferred-select-select" multiple="multiple" style="display: none">
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="switch primary node-affinity-label">
+                  <input type="checkbox" onclick="nodeAffinity('nodeaffinity-required-select','/ratel/info/nodeLabels?resourceName=all')" id="nodeaffinity-required-select" name="nodeaffinity-required-select" onkeyup="return inputSapceTrim(event,this);">
+                  <label for="nodeaffinity-required-select">必须部署在具有以下标签的节点:</label>
+                </div>
+                <div id="nodeaffinity-required-select-check" style="display: none">
+                  <div style="width: 300px">
+                    <select onchange="insertValue2Table('nodeaffinity-required-select-select','nodeaffinity-notrequired-select-select','nodeaffinity-required-table')" id="nodeaffinity-required-select-select" name="nodeaffinity-required-select-select" multiple="multiple" style="display: none">
+                    </select>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div>
+                <div class="switch primary node-affinity-label">
+                  <input type="checkbox" onclick="nodeAffinity('nodeaffinity-notpreferred-select','/ratel/info/nodeLabels?resourceName=all')" id="nodeaffinity-notpreferred-select" name="nodeaffinity-notpreferred-select" onkeyup="return inputSapceTrim(event,this);">
+                  <label for="nodeaffinity-notpreferred-select">尽量不部署在具有以下标签的节点:</label>
+                </div>
+                <div id="nodeaffinity-notpreferred-select-check" style="display: none">
+                  <div style="width: 300px">
+                    <select onchange="insertValue2Table('nodeaffinity-preferred-select-select','nodeaffinity-notpreferred-select-select','nodeaffinity-preferred-table')" id="nodeaffinity-notpreferred-select-select" name="nodeaffinity-notpreferred-select-select" multiple="multiple" style="display: none">
+                    </select>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div>
+                <div class="switch primary node-affinity-label">
+                  <input type="checkbox" onclick="nodeAffinity('nodeaffinity-notrequired-select','/ratel/info/nodeLabels?resourceName=all')" id="nodeaffinity-notrequired-select" name="nodeaffinity-notrequired-select" onkeyup="return inputSapceTrim(event,this);">
+                  <label for="nodeaffinity-notrequired-select">必须不部署在具有以下标签的节点:</label>
+                </div>
+                <div id="nodeaffinity-notrequired-select-check" style="display: none">
+                  <div style="width: 300px">
+                    <select onchange="insertValue2Table('nodeaffinity-required-select-select','nodeaffinity-notrequired-select-select','nodeaffinity-required-table')" id="nodeaffinity-notrequired-select-select" name="nodeaffinity-notrequired-select-select" multiple="multiple" style="display: none">
+                    </select>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="tab-pane" id="table-affinity">
+
+              <h3 style="color: yellow">Pod 亲和力</h3>
+              <div class="form-group">
+                <label for="podaffinity-required-table">必须和指定Pod部署在同一个宿主机(PodAffinity Required): </label>
+                <input type="hidden" id="podaffinity-required-count" name="podaffinity-required-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="podaffinity-required-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">Namespace</th>
+                    <th style="color: whitesmoke; width: 200px">Topology</th>
+                    <th style="color: whitesmoke">Pod标签</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" onclick="addEle('podaffinity-required-count','podAffinityRequired','podaffinity-required-table','xxx', 'tbody','false','')">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="podaffinity-required-table-td">
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="form-group">
+                <label for="podantiaffinity-required-table">必须和指定Pod<a style="color: yellow">不</a>部署在同一个宿主机(PodAntiAffinity Required): </label>
+                <input type="hidden" id="podantiaffinity-required-count" name="podantiaffinity-required-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="podantiaffinity-required-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">Namespace</th>
+                    <th style="color: whitesmoke; width: 200px">Topology</th>
+                    <th style="color: whitesmoke">Pod标签</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" onclick="addEle('podantiaffinity-required-count','podAntiAffinityRequired','podantiaffinity-required-table','xxx', 'tbody','false','')">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="podantiaffinity-required-table-td">
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="form-group">
+                <label for="podaffinity-preferred-table">尽量和指定Pod部署在同一个宿主机(PodAffinity Preferred): </label>
+                <input type="hidden" id="podaffinity-preferred-count" name="podaffinity-preferred-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="podaffinity-preferred-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke;width: 50px">权重</th>
+                    <th style="color: whitesmoke">Namespace</th>
+                    <th style="color: whitesmoke; width: 200px">Topology</th>
+                    <th style="color: whitesmoke">Pod标签</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" onclick="addEle('podaffinity-preferred-count','podAffinityPreferred','podaffinity-preferred-table','xxx', 'tbody','false','')">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="podaffinity-preferred-table-td">
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="form-group">
+                <label for="podantiaffinity-preferred-table">尽量和指定Pod<a style="color: yellow">不</a>部署在同一个宿主机(PodAntiAffinity Preferred): </label>
+                <input type="hidden" id="podantiaffinity-preferred-count" name="podantiaffinity-preferred-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="podantiaffinity-preferred-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke;width: 50px">权重</th>
+                    <th style="color: whitesmoke">Namespace</th>
+                    <th style="color: whitesmoke; width: 200px">Topology</th>
+                    <th style="color: whitesmoke">Pod标签</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" onclick="addEle('podantiaffinity-preferred-count','podAntiAffinityPreferred','podantiaffinity-preferred-table','xxx', 'tbody','false','')">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="podantiaffinity-preferred-table-td">
+
+                  </tbody>
+                </table>
+              </div>
+              <hr>
+              <h3 style="color: yellow">节点 亲和力</h3>
+
+              <div class="form-group">
+                <label for="nodeaffinity-preferred-table">NodeAffinity Preferred: </label>
+                <input type="hidden" id="nodeaffinity-preferred-count" name="nodeaffinity-preferred-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="nodeaffinity-preferred-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke;width: 50px">权重</th>
+                    <th style="color: whitesmoke">Node标签</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" onclick="addEle('nodeaffinity-preferred-count','nodeAffinityPreferred','nodeaffinity-preferred-table','xxx', 'tbody','false','')">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="nodeaffinity-preferred-table-td">
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="form-group">
+                <label for="nodeaffinity-required-table">NodeAffinity Required: </label>
+                <input type="hidden" id="nodeaffinity-required-count" name="nodeaffinity-required-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <table id="nodeaffinity-required-table" class="table table-striped table-bordered display">
+                  <thead>
+                  <tr>
+                    <th style="color: whitesmoke">Node标签</th>
+                    <th class="ico icon-list-add">
+                      <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                        <a style="color: whitesmoke" onclick="addEle('nodeaffinity-required-count','nodeAffinityRequired','nodeaffinity-required-table','xxx', 'tbody','false','')">添加</a>
+                      </button>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody id="nodeaffinity-required-table-td">
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane" id="table-containers">
+
+              <div class="form-group">
+                <label for="container-count">Containers:</label>
+                <input type="hidden" id="container-count" name="container-count" value="1" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                  <a style="color: whitesmoke" href="#" onclick="addContainer('container')">添加</a>
+                </button>
+                <hr>
+              </div>
+              <div id="container-list">
+                <div class="form-group" id="container-1">
+                  <label for="container-1-table" id="container-1-label">Container: </label>
+                  <table id="container-1-table" class="table table-striped table-bordered display">
+                    <tbody>
+                    <tr name="container-tr">
+                      <td width="240px">
+                        容器名称
+                      </td>
+                      <td>
+                        <input type="text" id="container-1-name" class="required" placeholder="Container Name" name="container-1-name" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                      </td>
+                    </tr>
+                    <tr name="container-tr">
+                      <td>
+                        镜像地址
+                      </td>
+                      <td>
+                        <input type="text" class="required" placeholder="Image Address" name="container-1-image" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                      </td>
+                    </tr>
+                    <tr name="container-tr">
+                      <td>
+                        启动命令
+                      </td>
+                      <td>
+                                                            <textarea placeholder="#启动命令(多个Command 用,,,+回车分隔, 如:
+sh,,,
+-c,,,
+pgrep java)" class="cm-textarea-command" name="container-1-command"></textarea>
+
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        启动参数
+                      </td>
+                      <td>
+                        <textarea placeholder="#启动参数(,,,+换行为分隔符)" class="cm-textarea-command" name="container-1-arg"></textarea>
+
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        Memory Request&amp;limit(单位: Mi)
+                      </td>
+                      <td>
+                        <div id="container-1-memory-slider">
+                          <span class="irs irs--flat js-irs-0  irs-with-grid"><span class="irs"><span class="irs-line" tabindex="0"></span><span class="irs-min">0</span><span class="irs-max">10 240</span><span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span></span><span class="irs-grid"><span class="irs-grid-pol" style="left: 0%"></span><span class="irs-grid-text js-grid-text-0" style="left: 0%">0</span><span class="irs-grid-pol small" style="left: 20%"></span><span class="irs-grid-pol small" style="left: 15%"></span><span class="irs-grid-pol small" style="left: 10%"></span><span class="irs-grid-pol small" style="left: 5%"></span><span class="irs-grid-pol" style="left: 25%"></span><span class="irs-grid-text js-grid-text-1" style="left: 25%; visibility: hidden;">2 560</span><span class="irs-grid-pol small" style="left: 45%"></span><span class="irs-grid-pol small" style="left: 40%"></span><span class="irs-grid-pol small" style="left: 35%"></span><span class="irs-grid-pol small" style="left: 30%"></span><span class="irs-grid-pol" style="left: 50%"></span><span class="irs-grid-text js-grid-text-2" style="left: 50%; visibility: hidden;">5 120</span><span class="irs-grid-pol small" style="left: 70%"></span><span class="irs-grid-pol small" style="left: 65%"></span><span class="irs-grid-pol small" style="left: 60%"></span><span class="irs-grid-pol small" style="left: 55%"></span><span class="irs-grid-pol" style="left: 75%"></span><span class="irs-grid-text js-grid-text-3" style="left: 75%; visibility: hidden;">7 680</span><span class="irs-grid-pol small" style="left: 95%"></span><span class="irs-grid-pol small" style="left: 90%"></span><span class="irs-grid-pol small" style="left: 85%"></span><span class="irs-grid-pol small" style="left: 80%"></span><span class="irs-grid-pol" style="left: 100%"></span><span class="irs-grid-text js-grid-text-4" style="left: 100%">10 240</span></span><span class="irs-bar"></span><span class="irs-shadow shadow-from"></span><span class="irs-shadow shadow-to"></span><span class="irs-handle from"><i></i><i></i><i></i></span><span class="irs-handle to type_last"><i></i><i></i><i></i></span></span><input type="text" class="js-range-slider self irs-hidden-input" name="container-1-memory" value="" data-type="double" data-min="0" data-max="10240" data-from="10" data-to="100" data-grid="true" tabindex="-1" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr name="container-tr">
+                      <td>
+                        CPU Request&amp;limit(单位: m)
+                      </td>
+                      <td>
+                        <div id="container-1-cpu-slider">
+                          <span class="irs irs--flat js-irs-1  irs-with-grid"><span class="irs"><span class="irs-line" tabindex="0"></span><span class="irs-min">0</span><span class="irs-max">4 000</span><span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span></span><span class="irs-grid"><span class="irs-grid-pol" style="left: 0%"></span><span class="irs-grid-text js-grid-text-0" style="left: 0%">0</span><span class="irs-grid-pol small" style="left: 20%"></span><span class="irs-grid-pol small" style="left: 15%"></span><span class="irs-grid-pol small" style="left: 10%"></span><span class="irs-grid-pol small" style="left: 5%"></span><span class="irs-grid-pol" style="left: 25%"></span><span class="irs-grid-text js-grid-text-1" style="left: 25%; visibility: hidden;">1 000</span><span class="irs-grid-pol small" style="left: 45%"></span><span class="irs-grid-pol small" style="left: 40%"></span><span class="irs-grid-pol small" style="left: 35%"></span><span class="irs-grid-pol small" style="left: 30%"></span><span class="irs-grid-pol" style="left: 50%"></span><span class="irs-grid-text js-grid-text-2" style="left: 50%; visibility: hidden;">2 000</span><span class="irs-grid-pol small" style="left: 70%"></span><span class="irs-grid-pol small" style="left: 65%"></span><span class="irs-grid-pol small" style="left: 60%"></span><span class="irs-grid-pol small" style="left: 55%"></span><span class="irs-grid-pol" style="left: 75%"></span><span class="irs-grid-text js-grid-text-3" style="left: 75%; visibility: hidden;">3 000</span><span class="irs-grid-pol small" style="left: 95%"></span><span class="irs-grid-pol small" style="left: 90%"></span><span class="irs-grid-pol small" style="left: 85%"></span><span class="irs-grid-pol small" style="left: 80%"></span><span class="irs-grid-pol" style="left: 100%"></span><span class="irs-grid-text js-grid-text-4" style="left: 100%">4 000</span></span><span class="irs-bar"></span><span class="irs-shadow shadow-from"></span><span class="irs-shadow shadow-to"></span><span class="irs-handle from"><i></i><i></i><i></i></span><span class="irs-handle to type_last"><i></i><i></i><i></i></span></span><input type="text" id="container-1-range-slider" class="js-range-slider irs-hidden-input" name="container-1-cpu" value="" data-type="double" data-min="0" data-max="4000" data-from="10" data-to="100" data-grid="true" tabindex="-1" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                        </div>
+                      </td>
+                    </tr>
+
+
+
+
+                    <tr name="container-tr" id="container-1-health-startup-check-tr">
+                      <td>
+                        <div class="switch primary"><input type="checkbox" onclick="healthCheck('container-1-health-startup')" id="container-1-health-startup" name="container-1-health-startup" onkeyup="return inputSapceTrim(event,this);"><label for="container-1-health-startup" style="color: #CCCCCC">StartupProbe(v1.16+)</label></div>
+                      </td>
+                      <td>
+                        <div id="container-1-health-startup-check" class="container-ports" style="display: none">
+                          <div>
+                            <div>
+                              准备时间:<input placeholder="容器初始化时间" type="text" class="required number" name="container-1-init-time-startup" value="30" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查间隔:<input placeholder="检查间隔" type="text" class="required number" name="container-1-duration-startup" value="10" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              超时时间:<input placeholder="超时时间" type="text" class="required number" name="container-1-timeout-startup" value="2" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                            <div>
+                              失败次数:<input placeholder="失败次数" type="text" class="required number" name="container-1-failure-number-startup" value="2" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              成功次数:<input placeholder="成功次数" type="text" class="required number" name="container-1-success-number-startup" value="1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查方式:
+                              <select id="container-1-check-option-startup" name="container-1-check-option-startup" onchange="containerCheckoutOption('container-1-check-option-startup')">
+                                <option selected="true">tcpSocket</option>
+                                <option>httpGet</option>
+                                <option>exec</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div id="container-1-check-option-startup-args">
+                            <div class="container-1-check-option-startup-arg" id="container-1-check-option-startup-tcpSocket">
+                              检查端口:<input name="container-1-check-tcpsocket-port-startup" id="container-1-check-tcpsocket-port-startup" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查Host:<input name="container-1-check-tcpsocket-host-startup" id="container-1-check-tcpsocket-host-startup" value="" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                            <div class="container-1-check-option-startup-arg" id="container-1-check-option-startup-httpGet" style="display: none">
+                              检查端口:<input name="container-1-check-httpget-port-startup" id="container-1-check-httpget-port-startup" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查路径:<input name="container-1-check-httpget-path-startup" id="container-1-check-httpget-path-startup" value="/" onkeyup="return inputSapceTrim(event,this);">
+
+                              检查方式:<select id="container-1-check-httpget-scheme-startup" name="container-1-check-httpget-scheme-startup">
+                              <option selected="true">HTTP</option>
+                              <option>HTTPS</option>
+                            </select>
+                              <div>
+                                检查Host:<input name="container-1-check-httpget-host-startup" id="container-1-check-httpget-host-startup" value="" onkeyup="return inputSapceTrim(event,this);">
+                                请求Header: <textarea style="height: 20px" class="cm-textarea" name="container-1-check-httpget-headers-startup" placeholder="key=value换行分隔"></textarea>
+                              </div>
+                            </div>
+                            <div class="container-1-check-option-startup-arg" id="container-1-check-option-startup-exec" style="display: none;">
+                              检查命令:<textarea style="height: 20px" class="cm-textarea" name="container-1-check-exec-command-startup" id="container-1-check-exec-command-startup" placeholder="多个Command 用,,,+回车分隔, 如:
+sh,,,
+-c,,,
+pgrep java"></textarea>
+                            </div>
+                          </div>
+
+
+                        </div>
+
+                      </td>
+                    </tr>
+                    <tr name="container-tr" id="container-1-health-live-check-tr">
+                      <td>
+                        <div class="switch primary"><input type="checkbox" onclick="healthCheck('container-1-health-live')" id="container-1-health-live" name="container-1-health-live" onkeyup="return inputSapceTrim(event,this);"><label for="container-1-health-live" style="color: #CCCCCC">LivenessProbe</label></div>
+                      </td>
+                      <td>
+                        <div id="container-1-health-live-check" class="container-ports" style="display: none">
+                          <div>
+                            <div>
+                              准备时间:<input placeholder="容器初始化时间" type="text" class="required number" name="container-1-init-time-live" value="30" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查间隔:<input placeholder="检查间隔" type="text" class="required number" name="container-1-duration-live" value="10" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              超时时间:<input placeholder="超时时间" type="text" class="required number" name="container-1-timeout-live" value="2" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                            <div>
+                              失败次数:<input placeholder="失败次数" type="text" class="required number" name="container-1-failure-number-live" value="2" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              成功次数:<input placeholder="成功次数" type="text" class="required number" name="container-1-success-number-live" value="1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查方式:
+                              <select id="container-1-check-option-live" name="container-1-check-option-live" onchange="containerCheckoutOption('container-1-check-option-live')">
+                                <option selected="true">tcpSocket</option>
+                                <option>httpGet</option>
+                                <option>exec</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div id="container-1-check-option-live-args">
+                            <div class="container-1-check-option-live-arg" id="container-1-check-option-live-tcpSocket">
+                              检查端口:<input name="container-1-check-tcpsocket-port-live" id="container-1-check-tcpsocket-port-live" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查Host:<input name="container-1-check-tcpsocket-host-live" id="container-1-check-tcpsocket-host-live" placeholder="请输入主机(可选)" value="" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                            <div class="container-1-check-option-live-arg" id="container-1-check-option-live-httpGet" style="display: none">
+                              检查端口:<input name="container-1-check-httpget-port-live" id="container-1-check-httpget-port-live" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查路径:<input name="container-1-check-httpget-path-live" id="container-1-check-httpget-path-live" value="/" onkeyup="return inputSapceTrim(event,this);">
+
+                              检查方式:<select id="container-1-check-httpget-scheme-live" name="container-1-check-httpget-scheme-live">
+                              <option selected="true">HTTP</option>
+                              <option>HTTPS</option>
+                            </select>
+                              <div>
+                                检查Host:<input name="container-1-check-httpget-host-live" id="container-1-check-httpget-host-live" placeholder="请输入主机(可选)" value="" onkeyup="return inputSapceTrim(event,this);">
+                                请求Header: <textarea style="height: 20px" class="cm-textarea" name="container-1-check-httpget-headers-live" placeholder="key=value换行分隔"></textarea>
+                              </div>
+                            </div>
+                            <div class="container-1-check-option-live-arg" id="container-1-check-option-live-exec" style="display: none;">
+                              检查命令:<textarea style="height: 20px" class="cm-textarea" name="container-1-check-exec-command-live" id="container-1-check-exec-command-live" placeholder="多个Command 用,,,+回车分隔, 如:
+sh,,,
+-c,,,
+pgrep java"></textarea>
+                            </div>
+                          </div>
+
+
+                        </div>
+
+                      </td>
+                    </tr>
+                    <tr name="container-tr" id="container-1-health-read-check-tr">
+                      <td>
+                        <div class="switch primary"><input type="checkbox" onclick="healthCheck('container-1-health-read')" id="container-1-health-read" name="container-1-health-read" onkeyup="return inputSapceTrim(event,this);"><label for="container-1-health-read" style="color: #CCCCCC">ReadinessProbe</label></div>
+                      </td>
+                      <td>
+                        <div id="container-1-health-read-check" class="container-ports" style="display: none">
+                          <div>
+                            <div>
+                              准备时间:<input placeholder="容器初始化时间" type="text" class="required number" name="container-1-init-time-read" value="30" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查间隔:<input placeholder="检查间隔" type="text" class="required number" name="container-1-duration-read" value="10" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              超时时间:<input placeholder="超时时间" type="text" class="required number" name="container-1-timeout-read" value="2" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                            <div>
+                              失败次数:<input placeholder="失败次数" type="text" class="required number" name="container-1-failure-number-read" value="2" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              成功次数:<input placeholder="成功次数" type="text" class="required number" name="container-1-success-number-read" value="1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查方式:
+                              <select id="container-1-check-option-read" name="container-1-check-option-read" onchange="containerCheckoutOption('container-1-check-option-read')">
+                                <option selected="true">tcpSocket</option>
+                                <option>httpGet</option>
+                                <option>exec</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div id="container-1-check-option-read-args">
+                            <div class="container-1-check-option-read-arg" id="container-1-check-option-read-tcpSocket">
+                              检查端口:<input name="container-1-check-tcpsocket-port-read" id="container-1-check-tcpsocket-port-read" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查Host:<input name="container-1-check-tcpsocket-host-read" id="container-1-check-tcpsocket-host-read" value="" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                            <div class="container-1-check-option-read-arg" id="container-1-check-option-read-httpGet" style="display: none">
+                              检查端口:<input name="container-1-check-httpget-port-read" id="container-1-check-httpget-port-read" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              检查路径:<input name="container-1-check-httpget-path-read" id="container-1-check-httpget-path-read" value="/" onkeyup="return inputSapceTrim(event,this);">
+
+                              检查方式:<select id="container-1-check-httpget-scheme-read" name="container-1-check-httpget-scheme-read">
+                              <option selected="true">HTTP</option>
+                              <option>HTTPS</option>
+                            </select>
+                              <div>
+                                检查Host:<input name="container-1-check-httpget-host-read" id="container-1-check-httpget-host-read" value="" onkeyup="return inputSapceTrim(event,this);">
+                                请求Header: <textarea style="height: 20px" class="cm-textarea" name="container-1-check-httpget-headers-read" placeholder="key=value换行分隔"></textarea>
+                              </div>
+                            </div>
+                            <div class="container-1-check-option-read-arg" id="container-1-check-option-read-exec" style="display: none;">
+                              检查命令:<textarea style="height: 20px" class="cm-textarea" name="container-1-check-exec-command-read" id="container-1-check-exec-command-read" placeholder="多个Command 用,,,+回车分隔, 如:
+sh,,,
+-c,,,
+pgrep java"></textarea>
+                            </div>
+                          </div>
+
+
+                        </div>
+
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        <div class="switch primary"><input type="checkbox" onclick="healthCheck('container-1-prestop')" id="container-1-prestop" name="container-1-prestop" onkeyup="return inputSapceTrim(event,this);"><label for="container-1-prestop" style="color: #CCCCCC">preStop</label></div>
+                      </td>
+                      <td>
+                        <div id="container-1-prestop-check" class="container-ports" style="display: none">
+                          检查方式:
+                          <select id="container-1-prestop-option" name="container-1-prestop-option" onchange="containerCheckoutOption('container-1-prestop-option')">
+                            <option selected="true">exec</option>
+                            <option>httpGet</option>
+                            <option>tcpSocket</option>
+                          </select>
+                          <div>
+                            <div id="container-1-prestop-option-args">
+                              <div class="container-1-prestop-option-arg" id="container-1-prestop-option-tcpSocket" style="display: none;">
+                                端口:<input name="container-1-prestop-tcpsocket-port" id="container-1-prestop-tcpsocket-port" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                                Host:<input name="container-1-prestop-tcpsocket-host" id="container-1-prestop-tcpsocket-host" placeholder="请输入主机(可选)" value="" onkeyup="return inputSapceTrim(event,this);">
+                              </div>
+                              <div class="container-1-prestop-option-arg" id="container-1-prestop-option-httpGet" style="display: none">
+                                端口:<input name="container-1-prestop-httpget-port" id="container-1-prestop-httpget-port" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                                路径:<input name="container-1-prestop-httpget-path" id="container-1-prestop-httpget-path" value="/" onkeyup="return inputSapceTrim(event,this);">
+                                协议:<select id="container-1-prestop-httpget-scheme" name="container-1-prestop-httpget-scheme">
+                                <option selected="true">HTTP</option>
+                                <option>HTTPS</option>
+                              </select>
+                                <div>
+                                  请求Host:<input name="container-1-prestop-httpget-host" id="container-1-prestop-httpget-host" placeholder="请输入主机(可选)" value="" onkeyup="return inputSapceTrim(event,this);">
+                                  请求Header: <textarea style="height: 20px" class="cm-textarea" name="container-1-prestop-httpget-headers" placeholder="key=value换行分隔"></textarea>
+                                </div>
+                              </div>
+                              <div class="container-1-prestop-option-arg" id="container-1-prestop-option-exec">
+                                执行命令: <textarea style="height: 20px" class="cm-textarea required" name="container-1-prestop-exec-command" id="container-1-prestop-exec-command" placeholder="多个Command 用,,,+回车分隔, 如:
+sh,,,
+-c,,,
+pgrep java" aria-required="true"></textarea>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        <div class="switch primary"><input type="checkbox" onclick="healthCheck('container-1-postStart')" id="container-1-postStart" name="container-1-postStart" onkeyup="return inputSapceTrim(event,this);"><label for="container-1-postStart" style="color: #CCCCCC">postStart</label></div>
+                      </td>
+                      <td>
+                        <div id="container-1-postStart-check" class="container-ports" style="display: none">
+                          检查方式:
+                          <select id="container-1-postStart-option" name="container-1-postStart-option" onchange="containerCheckoutOption('container-1-postStart-option')">
+                            <option selected="true">exec</option>
+                            <option>httpGet</option>
+                            <option>tcpSocket</option>
+                          </select>
+                          <div>
+                            <div id="container-1-postStart-option-args">
+                              <div class="container-1-postStart-option-arg" id="container-1-postStart-option-tcpSocket" style="display: none;">
+                                端口:<input name="container-1-postStart-tcpsocket-port" id="container-1-postStart-tcpsocket-port" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                                Host:<input name="container-1-postStart-tcpsocket-host" id="container-1-postStart-tcpsocket-host" placeholder="请输入主机(可选)" value="" onkeyup="return inputSapceTrim(event,this);">
+                              </div>
+                              <div class="container-1-postStart-option-arg" id="container-1-postStart-option-httpGet" style="display: none">
+                                端口:<input name="container-1-postStart-httpget-port" id="container-1-postStart-httpget-port" class="required" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                                路径:<input name="container-1-postStart-httpget-path" id="container-1-postStart-httpget-path" value="/" onkeyup="return inputSapceTrim(event,this);">
+                                协议:<select id="container-1-postStart-httpget-scheme" name="container-1-postStart-httpget-scheme">
+                                <option selected="true">HTTP</option>
+                                <option>HTTPS</option>
+                              </select>
+                                <div>
+                                  请求Host:<input name="container-1-postStart-httpget-host" id="container-1-postStart-httpget-host" placeholder="请输入主机(可选)" value="" onkeyup="return inputSapceTrim(event,this);">
+                                  请求Header: <textarea style="height: 20px" class="cm-textarea" name="container-1-postStart-httpget-headers" placeholder="key=value换行分隔"></textarea>
+                                </div>
+                              </div>
+                              <div class="container-1-postStart-option-arg" id="container-1-postStart-option-exec">
+                                执行命令: <textarea style="height: 20px" class="cm-textarea required" name="container-1-postStart-exec-command" id="container-1-postStart-exec-command" placeholder="多个Command 用,,,+回车分隔, 如:
+sh,,,
+-c,,,
+pgrep java" aria-required="true"></textarea>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                    <tr name="container-tr">
+                      <td>
+                        镜像下载策略
+                      </td>
+                      <td>
+                        <select name="container-1-image-pull-policy" style="background-color: transparent; color: whitesmoke" id="container-1-image-pull-policy" class="container-1-image-pull-policy required" aria-required="true">
+                          <option selected="true">Always</option>
+                          <option>IfNotPresent</option>
+                          <option>Never</option>
+                        </select>
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        容器端口
+                        <input type="hidden" id="container-1-port-count" name="container-1-port-count" value="1" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                        <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" id="add-container-1-port" onclick="addPort('container-1')">添加</a>
+                        </button>
+                      </td>
+                      <td>
+                        <div id="container-1-ports-list">
+                          <div id="container-1-ports" class="container-ports">
+                            <div>
+                              端口: <input placeholder="请输入端口号" type="text" class="required number self" name="container-1-port-1" value="8080" aria-required="true" onkeyup="return inputSapceTrim(event,this);">名称: <input placeholder="请输入端口名称" type="text" class="required string self" name="container-1-name-1" value="web" aria-required="true" onkeyup="return inputSapceTrim(event,this);">协议:<select name="container-1-protocol-1" style="background-color: transparent; color: whitesmoke" id="container-1-protocol-1">
+                              <option selected="true" style="color: black">TCP</option>
+                              <option style="color: black">UDP</option>
+                              <option style="color: black">SCTP</option>
+                            </select>
+                            </div>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        字符变量
+                        <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" id="add-container-1-env" onclick="addEnv('container-1')">添加</a>
+                        </button>
+                      </td>
+                      <td>
+                        <div id="container-1-env-list">
+                          <div id="container-1-env" class="container-ports">
+                            <div>
+                              Name:<input placeholder="请输入环境变量名称" type="text" class="required" name="container-1-env" value="TZ" aria-required="true" onkeyup="return inputSapceTrim(event,this);">Value:<input placeholder="请输入环境变量值" type="text" class="required hp" name="container-1-env" value="Asia/Shanghai" aria-required="true">
+                            </div>
+                            <div>
+                              Name:<input placeholder="请输入环境变量名称" type="text" class="required" name="container-1-env" value="LANG" aria-required="true" onkeyup="return inputSapceTrim(event,this);">Value:<input placeholder="请输入环境变量值" type="text" class="required hp" name="container-1-env" value="C.UTF-8" aria-required="true">
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        EnvFrom
+                        <input type="hidden" id="container-1-envfrom-count" name="container-1-envfrom-count" value="0" onkeyup="return inputSapceTrim(event,this);">
+                        <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" id="add-container-1-envfrom" onclick="addEle('container-1-envfrom-count','envFrom','container-1-envfrom','envFromID','div','false','container-id-envfrom')">添加</a>
+                        </button>
+                      </td>
+                      <td>
+                        <div id="container-1-envfrom-list">
+
+                        </div>
+
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        ValueFrom
+                        <input type="hidden" id="container-1-ValueFrom-count" name="container-1-ValueFrom-count" value="0" onkeyup="return inputSapceTrim(event,this);">
+                        <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" id="add-container-1-ValueFrom" onclick="addEle('container-1-ValueFrom-count','ValueFrom','container-1-ValueFrom','valuefromID','div','false','container-id-ValueFrom')">添加</a>
+                        </button>
+                      </td>
+                      <td>
+                        <div id="container-1-ValueFrom-list">
+
+                        </div>
+
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <input type="hidden" value="3" id="container-1-volume-mount-count" name="container-1-volume-mount-count" onkeyup="return inputSapceTrim(event,this);">
+                      <td>
+                        文件挂载
+                        <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" id="add-container-1-volume-mount" onclick="addVolumeMount('container-1')">添加</a>
+                        </button>
+                      </td>
+                      <td>
+                        <div id="container-1-default-volume-mount">
+                          <div id="volume-mount-container-1-1">
+                            Volume名称:<select name="container-1-volume-mount-name-1" style="background-color: transparent; color: whitesmoke" class="required" aria-required="true">
+                            <option>tz-config</option>
+                          </select>
+                            挂载目录: <input name="container-1-volume-mount-path-1" class="required" style="width: 200px;" placeholder="请输入容器挂载路径" value="/usr/share/zoneinfo/Asia/Shanghai" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                            <button type="button" class="btn btn-warning btn-xs waves-effect waves-light" style="margin: 10px 0 0 0 ">
+                              <a style="color: whitesmoke" onclick="deleteLabel('volume-mount-container-1-1')">删除</a>
+                            </button>
+                          </div>
+                          <div id="volume-mount-container-1-2">
+                            Volume名称:<select name="container-1-volume-mount-name-2" style="background-color: transparent; color: whitesmoke" class="required" aria-required="true">
+                            <option>tz-config</option>
+                          </select>
+                            挂载目录: <input name="container-1-volume-mount-path-2" class="required" style="width: 200px;" placeholder="请输入容器挂载路径" value="/etc/localtime" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                            <button type="button" class="btn btn-warning btn-xs waves-effect waves-light" style="margin: 10px 0 0 0 ">
+                              <a style="color: whitesmoke" onclick="deleteLabel('volume-mount-container-1-2')">删除</a>
+                            </button>
+                          </div>
+                          <div id="volume-mount-container-1-3">
+                            Volume名称:<select name="container-1-volume-mount-name-3" style="background-color: transparent; color: whitesmoke" class="required" aria-required="true">
+                            <option>timezone</option>
+                          </select>
+                            挂载目录: <input name="container-1-volume-mount-path-3" class="required" style="width: 200px;" placeholder="请输入容器挂载路径" value="/etc/timezone" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                            <button type="button" class="btn btn-warning btn-xs waves-effect waves-light" style="margin: 10px 0 0 0 ">
+                              <a style="color: whitesmoke" onclick="deleteLabel('volume-mount-container-1-3')">删除</a>
+                            </button>
+                          </div>
+                        </div>
+                        <div id="container-1-volume-mount-check" class="container-ports">
+
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        TTY
+                      </td>
+                      <td>
+                        <select name="container-1-tty" style="background-color: transparent; color: whitesmoke" id="container-1-tty" class="container-1-tty">
+                          <option selected="true"></option>
+                          <option>false</option>
+                          <option>true</option>
+                        </select>
+                      </td>
+                    </tr>
+
+                    <tr name="container-tr">
+                      <td>
+                        工作目录
+                      </td>
+                      <td>
+                        <input class="hp" name="container-1-workingdir" id="container-1-workingdir" style="width: 300px;">
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="tab-pane" id="table-init-containers">
+
+              <div class="form-group">
+                <label for="init-container-count">Containers:</label>
+                <input type="hidden" id="init-container-count" name="init-container-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                  <a style="color: whitesmoke" href="#" onclick="addContainer('init-container')">添加</a>
+                </button>
+                <hr>
+              </div>
+              <div id="init-container-list">
+              </div>
+              <hr>
+            </div>
+            <div class="tab-pane" id="table-volumes">
+
+              <div class="form-group">
+                <label for="volume-count">Volumes:</label>
+                <input type="hidden" id="volume-count" name="volume-count" value="2" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <hr>
+              </div>
+              <div id="volume-list">
+                <div class="form-group" id="volume-1-list">
+                  <label for="volume-table" id="volume-table">Volume: </label>
+                  <table id="volume-table" class="table table-striped table-bordered display">
+                    <thead>
+                    <tr>
+                      <th style="color: whitesmoke">名称</th>
+                      <th style="color: whitesmoke">类型</th>
+                      <th class="ico icon-list-add">
+                        <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" href="#" id="add-volume">添加</a>
+                        </button>
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr name="volume-tr" id="volume-xxx-template" style="display: none">
+                      <td>
+                        <input type="text" volumename="volume" class="required" placeholder="Volume Name" name="volume-xxx-name" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                      </td>
+                      <td>
+                        <label>Voume类型:</label>
+                        <select id="volume-xxx-select" name="volume-xxx-type" onchange="containerCheckoutOption('volume-xxx-select')">
+
+
+                          <option selected="true">HostPath</option>
+
+
+
+                          <option>Secret</option>
+
+
+
+                          <option>ConfigMap</option>
+
+
+
+                          <option>EmptyDir</option>
+
+
+
+                          <option>PVC</option>
+
+
+
+                          <option>NFS</option>
+
+
+                        </select>
+                        <div id="volume-xxx-select-Secret" class="volume-xxx-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>Secret名称:</label>
+                            <select id="volume-xxx-Secret-name" name="volume-xxx-Secret-name">
+                            </select>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" target="_blank" href="/ratel/create/secret">添加</a>
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" onclick="flushTls('volume-xxx-Secret-name','/ratel/getSecret?secretType=all')">刷新</a>
+                            </button>
+                          </div>
+                          <div class="container-ports">
+                            <label>DefaultMode:</label> <input type="text" class="number" id="volume-xxx-Secret-DefaultMode" name="volume-xxx-Secret-DefaultMode" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="switch primary volume-xxx-Secret-item" id="volume-xxx-Secret-item-div">
+                            <input type="checkbox" onclick="healthCheck('volume-xxx-Secret-item')" id="volume-xxx-Secret-item" name="volume-xxx-Secret-item" onkeyup="return inputSapceTrim(event,this);"><label for="volume-xxx-Secret-item">指定Item</label>
+                          </div>
+                          <div id="volume-xxx-Secret-item-check" style="display:none;">
+                            <div class="container-ports">
+                              Key: <input type="text" class="required" id="volume-xxx-Secret-key-1" placeholder="请输入Secret Key" name="volume-xxx-Secret-key-1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              Path: <input type="text" class="required" id="volume-xxx-Secret-path-1" placeholder="请输入Secret Path" name="volume-xxx-Secret-path-1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              Mode: <input type="text" class="number" id="volume-xxx-Secret-mode-1" placeholder="请输入Secret Mode" name="volume-xxx-Secret-mode-1" onkeyup="return inputSapceTrim(event,this);">
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" id="add-secret-item" onclick="addSecretConfigmapItem('Secret','volume-xxx')">添加</a>
+                              </button>
+                              <input type="hidden" value="1" id="volume-xxx-Secret-item-count" name="volume-xxx-Secret-item-count" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                          </div>
+
+                        </div>
+                        <div id="volume-xxx-select-HostPath" class="volume-xxx-select-arg">
+                          <div class="container-ports">
+                            主机目录: <input type="text" class="required" placeholder="宿主机路径" name="volume-xxx-HostPath-path" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+
+
+
+                            HostPath类型<select id="volume-xxx-HostPath-type" name="volume-xxx-HostPath-type">
+                            <option selected="true"></option>
+
+                            <option>DirectoryOrCreate</option>
+
+                            <option>Directory</option>
+
+                            <option>FileOrCreate</option>
+
+                            <option>File</option>
+
+                            <option>Socket</option>
+
+                            <option>CharDevice</option>
+
+                            <option>BlockDevice</option>
+
+                          </select>
+                          </div>
+
+                        </div>
+                        <div id="volume-xxx-select-ConfigMap" class="volume-xxx-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>ConfigMap名称:</label>
+                            <select id="volume-xxx-ConfigMap-name" name="volume-xxx-ConfigMap-name">
+                            </select>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" target="_blank" href="/ratel/create/configmap">添加</a>
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" onclick="flushTls('volume-xxx-ConfigMap-name','/ratel/getConfigMap')">刷新</a>
+                            </button>
+                          </div>
+                          <div class="container-ports">
+                            <label>DefaultMode:</label> <input type="text" class="number" id="volume-xxx-ConfigMap-DefaultMode" name="volume-xxx-ConfigMap-DefaultMode" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="switch primary volume-xxx-ConfigMap-item" id="volume-xxx-ConfigMap-item-div">
+                            <input type="checkbox" onclick="healthCheck('volume-xxx-ConfigMap-item')" id="volume-xxx-ConfigMap-item" name="volume-xxx-ConfigMap-item" onkeyup="return inputSapceTrim(event,this);"><label for="volume-xxx-ConfigMap-item">指定Item</label>
+                          </div>
+                          <div id="volume-xxx-ConfigMap-item-check" class="container-ports" style="display:none;">
+                            Key: <input type="text" class="required" id="volume-xxx-ConfigMap-key-1" placeholder="请输入ConfigMap Key" name="volume-xxx-ConfigMap-key-1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                            Path: <input type="text" class="required" id="volume-xxx-ConfigMap-path-1" placeholder="请输入ConfigMap Path" name="volume-xxx-ConfigMap-path-1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                            Mode: <input type="text" class="number" id="volume-xxx-ConfigMap-mode-1" placeholder="请输入ConfigMap Mode" name="volume-xxx-ConfigMap-mode-1" onkeyup="return inputSapceTrim(event,this);">
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" id="add-configmap-item" onclick="addSecretConfigmapItem('ConfigMap','volume-xxx')">添加</a>
+                            </button>
+                            <input type="hidden" value="1" id="volume-xxx-ConfigMap-item-count" name="volume-xxx-ConfigMap-item-count" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                        </div>
+                        <div id="volume-xxx-select-PVC" class="volume-xxx-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>claimName:</label>
+                            <select id="volume-xxx-PVC-name" name="volume-xxx-PVC-name">
+                            </select>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" target="_blank" href="/ratel/create/pvc">添加</a>
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" onclick="flushTls('volume-xxx-PVC-name','/ratel/getPVC')">刷新</a>
+                            </button>
+                          </div>
+                        </div>
+                        <div id="volume-xxx-select-StorageClass" class="volume-xxx-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>权限:</label>
+                            <select id="volume-xxx-StorageClass-accessModes" name="volume-xxx-StorageClass-accessModes">
+                              <option>ReadWriteOnce</option>
+                              <option>ReadOnlyMany</option>
+                              <option>ReadWriteMany</option>
+                            </select>
+                            <div>
+                              <label>StorageClass名称:</label>
+                              <select id="volume-xxx-StorageClass-name" name="volume-xxx-StorageClass-name" class="required" aria-required="true">
+                                <option>test</option>
+                              </select>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" target="_blank" href="/ratel/create/storageClass">添加</a>
+                              </button>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" onclick="flushTls('volume-xxx-StorageClass-name','/ratel/getStorageClass')">刷新</a>
+                              </button>
+                            </div>
+                            <label>申请空间大小（G）:</label>
+                            <div id="volume-xxx-StorageClass-request">
+                              <input type="text" class="js-range-slider self" name="volume-xxx-StorageClass-request" value="" data-type="double" data-min="1" data-max="1024" data-from="1" data-to="10" data-grid="true" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+
+                          </div>
+                        </div>
+                        <div id="volume-xxx-select-EmptyDir" class="volume-xxx-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>Medium:</label>
+                            <select id="volume-xxx-EmptyDir-Medium" name="volume-xxx-EmptyDir-Medium">
+                              <option selected="true"></option>
+                              <option>Memory</option>
+                              <option>HugePages</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div id="volume-xxx-select-NFS" class="volume-xxx-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            NFS服务器地址: <input type="text" class="required" placeholder="nfs server" name="volume-xxx-NFS-server" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="container-ports">
+                            NFS服务器目录: <input type="text" class="required" placeholder="nfs path" name="volume-xxx-NFS-path" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="container-ports">
+                            <label>ReadOnly:</label>
+                            <select id="volume-xxx-NFS-ReadOnly" name="volume-xxx-NFS-ReadOnly">
+                              <option selected="true">false</option>
+                              <option>true</option>
+                            </select>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-warning btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" onclick="deleteLabel('volume-xxx')" id="del-volume">删除</a>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="volume-name" name="volume-tr" id="volume-1">
+                      <td>
+                        <input type="text" volumename="volume" class="required" placeholder="Volume Name" name="volume-1-name" required="" value="tz-config" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                      </td>
+                      <td>
+                        <label>Voume类型:</label>
+                        <select id="volume-1-select" name="volume-1-type" onchange="containerCheckoutOption('volume-1-select')">
+
+
+                          <option selected="true">HostPath</option>
+
+
+
+                          <option>Secret</option>
+
+
+
+                          <option>ConfigMap</option>
+
+
+
+                          <option>EmptyDir</option>
+
+
+
+                          <option>PVC</option>
+
+
+
+                          <option>NFS</option>
+
+
+                        </select>
+                        <div id="volume-1-select-EmptyDir" class="volume-1-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>Medium:</label>
+                            <select id="volume-1-EmptyDir-Medium" name="volume-1-EmptyDir-Medium">
+                              <option selected="true"></option>
+                              <option>Memory</option>
+                              <option>HugePages</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div id="volume-1-select-NFS" class="volume-1-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            NFS服务器地址: <input type="text" class="required" placeholder="nfs server" name="volume-1-NFS-server" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="container-ports">
+                            NFS服务器目录: <input type="text" class="required" placeholder="nfs path" name="volume-1-NFS-path" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="container-ports">
+                            <label>ReadOnly:</label>
+                            <select id="volume-1-NFS-ReadOnly" name="volume-1-NFS-ReadOnly">
+                              <option selected="true">false</option>
+                              <option>true</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div id="volume-1-select-Secret" class="volume-1-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>Secret名称:</label>
+                            <select id="volume-1-Secret-name" name="volume-1-Secret-name">
+                            </select>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" target="_blank" href="/ratel/create/secret">添加</a>
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" onclick="flushTls('volume-1-Secret-name','/ratel/getSecret?secretType=all')">刷新</a>
+                            </button>
+                          </div>
+                          <div class="container-ports">
+                            <label>DefaultMode:</label> <input type="text" class="number" id="volume-1-Secret-DefaultMode" name="volume-1-Secret-DefaultMode" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="switch primary volume-1-Secret-item" id="volume-1-Secret-item-div">
+                            <input type="checkbox" onclick="healthCheck('volume-1-Secret-item')" id="volume-1-Secret-item" name="volume-1-Secret-item" onkeyup="return inputSapceTrim(event,this);"><label for="volume-1-Secret-item">指定Item</label>
+                          </div>
+                          <div id="volume-1-Secret-item-check" style="display:none;">
+                            <div class="container-ports">
+                              Key: <input type="text" id="volume-1-Secret-key-1" placeholder="请输入Secret Key" name="volume-1-Secret-key-1" onkeyup="return inputSapceTrim(event,this);">
+                              Path: <input type="text" id="volume-1-Secret-path-1" placeholder="请输入Secret Path" name="volume-1-Secret-path-1" onkeyup="return inputSapceTrim(event,this);">
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" id="add-secret-item" onclick="addSecretConfigmapItem('Secret','volume-1')">添加</a>
+                              </button>
+                              <input type="hidden" value="1" id="volume-1-Secret-item-count" name="volume-1-Secret-item-count" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                          </div>
+
+                        </div>
+                        <div id="volume-1-select-StorageClass" class="volume-1-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>权限:</label>
+                            <select id="volume-1-StorageClass-accessModes" name="volume-1-StorageClass-accessModes">
+                              <option>ReadWriteOnce</option>
+                              <option>ReadOnlyMany</option>
+                              <option>ReadWriteMany</option>
+                            </select>
+                            <div>
+                              <label>StorageClass名称:</label>
+                              <select id="volume-1-StorageClass-name" name="volume-1-StorageClass-name" class="required" aria-required="true">
+                              </select>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" target="_blank" href="/ratel/create/storageClass">添加</a>
+                              </button>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" onclick="flushTls('volume-1-StorageClass-name','/ratel/getStorageClass')">刷新</a>
+                              </button>
+                            </div>
+                            <label>申请空间大小（G）:</label>
+                            <div id="volume-1-StorageClass-request">
+                              <span class="irs irs--flat js-irs-2  irs-with-grid"><span class="irs"><span class="irs-line" tabindex="0"></span><span class="irs-min">1</span><span class="irs-max">1 024</span><span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span></span><span class="irs-grid"><span class="irs-grid-pol" style="left: 0%"></span><span class="irs-grid-text js-grid-text-0" style="left: 0%">1</span><span class="irs-grid-pol small" style="left: 20%"></span><span class="irs-grid-pol small" style="left: 15%"></span><span class="irs-grid-pol small" style="left: 10%"></span><span class="irs-grid-pol small" style="left: 5%"></span><span class="irs-grid-pol" style="left: 25%"></span><span class="irs-grid-text js-grid-text-1" style="left: 25%; visibility: hidden;">257</span><span class="irs-grid-pol small" style="left: 45%"></span><span class="irs-grid-pol small" style="left: 40%"></span><span class="irs-grid-pol small" style="left: 35%"></span><span class="irs-grid-pol small" style="left: 30%"></span><span class="irs-grid-pol" style="left: 50%"></span><span class="irs-grid-text js-grid-text-2" style="left: 50%; visibility: hidden;">513</span><span class="irs-grid-pol small" style="left: 70%"></span><span class="irs-grid-pol small" style="left: 65%"></span><span class="irs-grid-pol small" style="left: 60%"></span><span class="irs-grid-pol small" style="left: 55%"></span><span class="irs-grid-pol" style="left: 75%"></span><span class="irs-grid-text js-grid-text-3" style="left: 75%; visibility: hidden;">768</span><span class="irs-grid-pol small" style="left: 95%"></span><span class="irs-grid-pol small" style="left: 90%"></span><span class="irs-grid-pol small" style="left: 85%"></span><span class="irs-grid-pol small" style="left: 80%"></span><span class="irs-grid-pol" style="left: 100%"></span><span class="irs-grid-text js-grid-text-4" style="left: 100%">1 024</span></span><span class="irs-bar"></span><span class="irs-shadow shadow-from"></span><span class="irs-shadow shadow-to"></span><span class="irs-handle from"><i></i><i></i><i></i></span><span class="irs-handle to type_last"><i></i><i></i><i></i></span></span><input type="text" class="js-range-slider self irs-hidden-input" name="volume-1-StorageClass-request" value="" data-type="double" data-min="1" data-max="1024" data-from="1" data-to="10" data-grid="true" tabindex="-1" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                          </div>
+                        </div>
+                        <div id="volume-1-select-HostPath" class="volume-1-select-arg">
+                          <div class="container-ports">
+                            主机目录: <input type="text" class="required" placeholder="宿主机路径" name="volume-1-HostPath-path" required="" value="/usr/share/zoneinfo/Asia/Shanghai" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+
+                        </div>
+                        <div id="volume-1-select-ConfigMap" class="volume-1-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>ConfigMap名称:</label>
+                            <select id="volume-1-ConfigMap-name" name="volume-1-ConfigMap-name">
+                            </select>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" target="_blank" href="/ratel/create/configmap">添加</a>
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" onclick="flushTls('volume-1-ConfigMap-name','/ratel/getConfigMap')">刷新</a>
+                            </button>
+                          </div>
+                          <div class="container-ports">
+                            <label>DefaultMode:</label> <input type="text" class="number" id="volume-1-ConfigMap-DefaultMode" name="volume-1-ConfigMap-DefaultMode" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="switch primary volume-1-ConfigMap-item" id="volume-1-ConfigMap-item-div">
+                            <input type="checkbox" onclick="healthCheck('volume-1-ConfigMap-item')" id="volume-1-ConfigMap-item" name="volume-1-ConfigMap-item" onkeyup="return inputSapceTrim(event,this);"><label for="volume-1-ConfigMap-item">指定Item</label>
+                          </div>
+                          <div id="volume-1-ConfigMap-item-check" class="container-ports" style="display:none;">
+                            Key: <input type="text" id="volume-1-ConfigMap-key-1" placeholder="请输入ConfigMap Key" name="volume-1-ConfigMap-key-1" onkeyup="return inputSapceTrim(event,this);">
+                            Path: <input type="text" id="volume-1-ConfigMap-path-1" placeholder="请输入ConfigMap Path" name="volume-1-ConfigMap-path-1" onkeyup="return inputSapceTrim(event,this);">
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" id="add-configmap-item" onclick="addSecretConfigmapItem('ConfigMap','volume-1')">添加</a>
+                            </button>
+                            <input type="hidden" value="1" id="volume-1-ConfigMap-item-count" name="volume-1-ConfigMap-item-count" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                        </div>
+                        <div id="volume-1-select-PVC" class="volume-1-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>claimName:</label>
+                            <select id="volume-1-PVC-name" name="volume-1-PVC-name">
+                            </select>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" target="_blank" href="/ratel/create/pvc">添加</a>
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" onclick="flushTls('volume-1-PVC-name','/ratel/getPVC')">刷新</a>
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-warning btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" onclick="deleteLabel('volume-1')" id="del-volume">删除</a>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="volume-name" name="volume-tr" id="volume-2">
+                      <td>
+                        <input type="text" volumename="volume" class="required" placeholder="Volume Name" name="volume-2-name" required="" value="timezone" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                      </td>
+                      <td>
+                        <label>Voume类型:</label>
+                        <select id="volume-2-select" name="volume-2-type" onchange="containerCheckoutOption('volume-2-select')">
+
+
+                          <option selected="true">HostPath</option>
+
+
+
+                          <option>Secret</option>
+
+
+
+                          <option>ConfigMap</option>
+
+
+
+                          <option>EmptyDir</option>
+
+
+
+                          <option>PVC</option>
+
+
+
+                          <option>NFS</option>
+
+
+                        </select>
+                        <div id="volume-2-select-EmptyDir" class="volume-2-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>Medium:</label>
+                            <select id="volume-2-EmptyDir-Medium" name="volume-2-EmptyDir-Medium">
+                              <option selected="true"></option>
+                              <option>Memory</option>
+                              <option>HugePages</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div id="volume-2-select-NFS" class="volume-2-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            NFS服务器地址: <input type="text" class="required" placeholder="nfs server" name="volume-2-NFS-server" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="container-ports">
+                            NFS服务器目录: <input type="text" class="required" placeholder="nfs path" name="volume-2-NFS-path" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="container-ports">
+                            <label>ReadOnly:</label>
+                            <select id="volume-2-NFS-ReadOnly" name="volume-2-NFS-ReadOnly">
+                              <option selected="true">false</option>
+                              <option>true</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div id="volume-2-select-Secret" class="volume-2-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>Secret名称:</label>
+                            <select id="volume-2-Secret-name" name="volume-2-Secret-name">
+                            </select>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" target="_blank" href="/ratel/create/secret">添加</a>
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" onclick="flushTls('volume-2-Secret-name','/ratel/getSecret?secretType=all')">刷新</a>
+                            </button>
+                          </div>
+                          <div class="container-ports">
+                            <label>DefaultMode:</label> <input type="text" class="number" id="volume-2-Secret-DefaultMode" name="volume-2-Secret-DefaultMode" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="switch primary volume-2-Secret-item" id="volume-2-Secret-item-div">
+                            <input type="checkbox" onclick="healthCheck('volume-2-Secret-item')" id="volume-2-Secret-item" name="volume-2-Secret-item" onkeyup="return inputSapceTrim(event,this);"><label for="volume-2-Secret-item">指定Item</label>
+                          </div>
+                          <div id="volume-2-Secret-item-check" style="display:none;">
+                            <div class="container-ports">
+                              Key: <input type="text" id="volume-2-Secret-key-1" placeholder="请输入Secret Key" name="volume-2-Secret-key-1" onkeyup="return inputSapceTrim(event,this);">
+                              Path: <input type="text" id="volume-2-Secret-path-1" placeholder="请输入Secret Path" name="volume-2-Secret-path-1" onkeyup="return inputSapceTrim(event,this);">
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" id="add-secret-item" onclick="addSecretConfigmapItem('Secret','volume-2')">添加</a>
+                              </button>
+                              <input type="hidden" value="1" id="volume-2-Secret-item-count" name="volume-2-Secret-item-count" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                          </div>
+
+                        </div>
+                        <div id="volume-2-select-StorageClass" class="volume-2-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>权限:</label>
+                            <select id="volume-2-StorageClass-accessModes" name="volume-2-StorageClass-accessModes">
+                              <option>ReadWriteOnce</option>
+                              <option>ReadOnlyMany</option>
+                              <option>ReadWriteMany</option>
+                            </select>
+                            <div>
+                              <label>StorageClass名称:</label>
+                              <select id="volume-2-StorageClass-name" name="volume-2-StorageClass-name" class="required" aria-required="true">
+                              </select>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" target="_blank" href="/ratel/create/storageClass">添加</a>
+                              </button>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" onclick="flushTls('volume-2-StorageClass-name','/ratel/getStorageClass')">刷新</a>
+                              </button>
+                            </div>
+                            <label>申请空间大小（G）:</label>
+                            <div id="volume-2-StorageClass-request">
+                              <span class="irs irs--flat js-irs-3  irs-with-grid"><span class="irs"><span class="irs-line" tabindex="0"></span><span class="irs-min">1</span><span class="irs-max">1 024</span><span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span></span><span class="irs-grid"><span class="irs-grid-pol" style="left: 0%"></span><span class="irs-grid-text js-grid-text-0" style="left: 0%">1</span><span class="irs-grid-pol small" style="left: 20%"></span><span class="irs-grid-pol small" style="left: 15%"></span><span class="irs-grid-pol small" style="left: 10%"></span><span class="irs-grid-pol small" style="left: 5%"></span><span class="irs-grid-pol" style="left: 25%"></span><span class="irs-grid-text js-grid-text-1" style="left: 25%; visibility: hidden;">257</span><span class="irs-grid-pol small" style="left: 45%"></span><span class="irs-grid-pol small" style="left: 40%"></span><span class="irs-grid-pol small" style="left: 35%"></span><span class="irs-grid-pol small" style="left: 30%"></span><span class="irs-grid-pol" style="left: 50%"></span><span class="irs-grid-text js-grid-text-2" style="left: 50%; visibility: hidden;">513</span><span class="irs-grid-pol small" style="left: 70%"></span><span class="irs-grid-pol small" style="left: 65%"></span><span class="irs-grid-pol small" style="left: 60%"></span><span class="irs-grid-pol small" style="left: 55%"></span><span class="irs-grid-pol" style="left: 75%"></span><span class="irs-grid-text js-grid-text-3" style="left: 75%; visibility: hidden;">768</span><span class="irs-grid-pol small" style="left: 95%"></span><span class="irs-grid-pol small" style="left: 90%"></span><span class="irs-grid-pol small" style="left: 85%"></span><span class="irs-grid-pol small" style="left: 80%"></span><span class="irs-grid-pol" style="left: 100%"></span><span class="irs-grid-text js-grid-text-4" style="left: 100%">1 024</span></span><span class="irs-bar"></span><span class="irs-shadow shadow-from"></span><span class="irs-shadow shadow-to"></span><span class="irs-handle from"><i></i><i></i><i></i></span><span class="irs-handle to type_last"><i></i><i></i><i></i></span></span><input type="text" class="js-range-slider self irs-hidden-input" name="volume-2-StorageClass-request" value="" data-type="double" data-min="1" data-max="1024" data-from="1" data-to="10" data-grid="true" tabindex="-1" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                          </div>
+                        </div>
+                        <div id="volume-2-select-HostPath" class="volume-2-select-arg">
+                          <div class="container-ports">
+                            主机目录: <input type="text" class="required" placeholder="宿主机路径" name="volume-2-HostPath-path" required="" value="/etc/timezone" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+
+                        </div>
+                        <div id="volume-2-select-ConfigMap" class="volume-2-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>ConfigMap名称:</label>
+                            <select id="volume-2-ConfigMap-name" name="volume-2-ConfigMap-name">
+                            </select>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" target="_blank" href="/ratel/create/configmap">添加</a>
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" onclick="flushTls('volume-2-ConfigMap-name','/ratel/getConfigMap')">刷新</a>
+                            </button>
+                          </div>
+                          <div class="container-ports">
+                            <label>DefaultMode:</label> <input type="text" class="number" id="volume-2-ConfigMap-DefaultMode" name="volume-2-ConfigMap-DefaultMode" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                          <div class="switch primary volume-2-ConfigMap-item" id="volume-2-ConfigMap-item-div">
+                            <input type="checkbox" onclick="healthCheck('volume-2-ConfigMap-item')" id="volume-2-ConfigMap-item" name="volume-2-ConfigMap-item" onkeyup="return inputSapceTrim(event,this);"><label for="volume-2-ConfigMap-item">指定Item</label>
+                          </div>
+                          <div id="volume-2-ConfigMap-item-check" class="container-ports" style="display:none;">
+                            Key: <input type="text" id="volume-2-ConfigMap-key-1" placeholder="请输入ConfigMap Key" name="volume-2-ConfigMap-key-1" onkeyup="return inputSapceTrim(event,this);">
+                            Path: <input type="text" id="volume-2-ConfigMap-path-1" placeholder="请输入ConfigMap Path" name="volume-2-ConfigMap-path-1" onkeyup="return inputSapceTrim(event,this);">
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" id="add-configmap-item" onclick="addSecretConfigmapItem('ConfigMap','volume-2')">添加</a>
+                            </button>
+                            <input type="hidden" value="1" id="volume-2-ConfigMap-item-count" name="volume-2-ConfigMap-item-count" onkeyup="return inputSapceTrim(event,this);">
+                          </div>
+                        </div>
+                        <div id="volume-2-select-PVC" class="volume-2-select-arg" style="display:none;">
+                          <div class="container-ports">
+                            <label>claimName:</label>
+                            <select id="volume-2-PVC-name" name="volume-2-PVC-name">
+                            </select>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" target="_blank" href="/ratel/create/pvc">添加</a>
+                            </button>
+                            <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                              <a style="color: whitesmoke" onclick="flushTls('volume-2-PVC-name','/ratel/getPVC')">刷新</a>
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-warning btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" onclick="deleteLabel('volume-2')" id="del-volume">删除</a>
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <hr>
+
+
+              <div class="form-group">
+                <label for="projected-volume-count">Projected Volumes:</label>
+                <input type="hidden" id="projected-volume-count" name="projected-volume-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                <hr>
+              </div>
+              <div id="projected-volume-list">
+                <div class="form-group" id="projected-volume-1-list">
+                  <div class="container-ports">
+                    <label>名称:</label> <input type="text" class="" id="projected-volume-name" name="projected-volume-name" placeholder="请输入名称" onkeyup="return inputSapceTrim(event,this);">
+                    <label>DefaultMode:</label> <input type="text" class="number" id="projected-volume-DefaultMode" name="projected-volume-DefaultMode" placeholder="请输入默认权限" onkeyup="return inputSapceTrim(event,this);">
+                  </div>
+                  <table id="projected-volume-table" class="table table-striped table-bordered display">
+                    <thead>
+                    <tr>
+                      <th style="color: whitesmoke">类型</th>
+                      <th style="color: whitesmoke">选项</th>
+                      <th class="ico icon-list-add">
+                        <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" href="javascript:;" id="add-projected-volume" onclick="addProjectedVolume('projected-volume-count','projected-volume-xxx-template')">添加</a>
+                        </button>
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr name="volume-tr" id="projected-volume-xxx-template" style="display: none">
+                      <td>
+                        <select id="projected-volume-xxx-select" name="projected-volume-xxx-type" onchange="containerCheckoutOption('projected-volume-xxx-select')">
+
+                          <option selected="true">DownwardAPI</option>
+
+                          <option selected="true">Secret</option>
+
+                          <option selected="true">ConfigMap</option>
+
+                        </select>
+                      </td>
+                      <td>
+                        <div id="projected-volume-xxx-info">
+                          <div id="projected-volume-xxx-select-Secret" class="projected-volume-xxx-select-arg" style="display:none;">
+                            <div class="container-ports">
+                              <label>Secret名称:</label>
+                              <select id="projected-volume-xxx-Secret-name" name="projected-volume-xxx-Secret-name">
+                              </select>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" target="_blank" href="/ratel/create/secret">添加</a>
+                              </button>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" onclick="flushTls('projected-volume-xxx-Secret-name','/ratel/getSecret?secretType=all')">刷新</a>
+                              </button>
+                            </div>
+                            <div class="switch primary projected-volume-xxx-Secret-item" id="projected-volume-xxx-Secret-item-div">
+                              <input type="checkbox" onclick="healthCheck('projected-volume-xxx-Secret-item')" id="projected-volume-xxx-Secret-item" name="projected-volume-xxx-Secret-item" onkeyup="return inputSapceTrim(event,this);"><label for="projected-volume-xxx-Secret-item">指定Item</label>
+                            </div>
+                            <div id="projected-volume-xxx-Secret-item-check" style="display:none;">
+                              <div class="container-ports">
+                                Key: <input type="text" class="required" id="projected-volume-xxx-Secret-key-1" placeholder="请输入Secret Key" name="projected-volume-xxx-Secret-key-1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                                Path: <input type="text" class="required" id="projected-volume-xxx-Secret-path-1" placeholder="请输入Secret Path" name="projected-volume-xxx-Secret-path-1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                                Mode: <input type="text" class="number" id="projected-volume-xxx-Secret-mode-1" placeholder="请输入Secret Mode" name="projected-volume-xxx-Secret-mode-1" onkeyup="return inputSapceTrim(event,this);">
+                                <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                  <a style="color: whitesmoke" id="add-secret-item" onclick="addSecretConfigmapItem('Secret','projected-volume-xxx')">添加</a>
+                                </button>
+                                <input type="hidden" value="1" id="projected-volume-xxx-Secret-item-count" name="projected-volume-xxx-Secret-item-count" onkeyup="return inputSapceTrim(event,this);">
+                              </div>
+                            </div>
+
+                          </div>
+                          <div id="projected-volume-xxx-select-ConfigMap" class="projected-volume-xxx-select-arg" style="">
+                            <div class="container-ports">
+                              <label>ConfigMap名称:</label>
+                              <select id="projected-volume-xxx-ConfigMap-name" name="projected-volume-xxx-ConfigMap-name">
+                              </select>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" target="_blank" href="/ratel/create/configmap">添加</a>
+                              </button>
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" onclick="flushTls('projected-volume-xxx-ConfigMap-name','/ratel/getConfigMap')">刷新</a>
+                              </button>
+                            </div>
+                            <div class="switch primary projected-volume-xxx-ConfigMap-item" id="projected-volume-xxx-ConfigMap-item-div">
+                              <input type="checkbox" onclick="healthCheck('projected-volume-xxx-ConfigMap-item')" id="projected-volume-xxx-ConfigMap-item" name="projected-volume-xxx-ConfigMap-item" onkeyup="return inputSapceTrim(event,this);"><label for="projected-volume-xxx-ConfigMap-item">指定Item</label>
+                            </div>
+                            <div id="projected-volume-xxx-ConfigMap-item-check" class="container-ports" style="display:none;">
+                              Key: <input type="text" class="required" id="projected-volume-xxx-ConfigMap-key-1" placeholder="请输入ConfigMap Key" name="projected-volume-xxx-ConfigMap-key-1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              Path: <input type="text" class="required" id="projected-volume-xxx-ConfigMap-path-1" placeholder="请输入ConfigMap Path" name="projected-volume-xxx-ConfigMap-path-1" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                              Mode: <input type="text" class="number" id="projected-volume-xxx-ConfigMap-mode-1" placeholder="请输入ConfigMap Mode" name="projected-volume-xxx-ConfigMap-mode-1" onkeyup="return inputSapceTrim(event,this);">
+                              <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                                <a style="color: whitesmoke" id="add-configmap-item" onclick="addSecretConfigmapItem('ConfigMap','projected-volume-xxx')">添加</a>
+                              </button>
+                              <input type="hidden" value="1" id="projected-volume-xxx-ConfigMap-item-count" name="projected-volume-xxx-ConfigMap-item-count" onkeyup="return inputSapceTrim(event,this);">
+                            </div>
+                          </div>
+                          <div id="projected-volume-xxx-select-DownwardAPI" class="projected-volume-xxx-select-arg" style="display: none">
+                            <div id="projected-volume-xxx-DownwardAPI" class="container-ports">
+                              <div style="width: 100%;">
+                                <div style="float: left;width: 300px;height:18px;">类型:<select id="projected-volume-xxx-DownwardAPI-type" name="projected-volume-xxx-DownwardAPI-type" onchange="containerCheckoutOption('projected-volume-xxx-DownwardAPI-type','projected-volume-xxx-DownwardAPI')">
+                                  <option selected="true">FieldRef</option>
+                                  <option>ResourceFieldRef</option>
+                                </select>
+                                </div>
+                                <div style="" id="projected-volume-xxx-DownwardAPI-type-FieldRef" class="projected-volume-xxx-DownwardAPI-type-arg">
+                                  字段路径:<select id="projected-volume-xxx-DownwardAPI-FieldRef-path" name="projected-volume-xxx-DownwardAPI-FieldRef-path" aria-invalid="false" class="valid">
+                                  <option selected="true">metadata.name</option>
+                                  <option>metadata.namespace</option>
+                                  <option>metadata.uid</option>
+                                  <option>metadata.labels</option>
+                                  <option>metadata.annotations</option>
+                                  <option>status.podIP</option>
+                                  <option>spec.serviceAccountName</option>
+                                  <option>spec.nodeName</option>
+                                </select>
+                                </div>
+                                <div id="projected-volume-xxx-DownwardAPI-type-ResourceFieldRef" class="projected-volume-xxx-DownwardAPI-type-arg" style="display: none">
+                                  Container:<select style="width: 50px" id="projected-volume-xxx-DownwardAPI-ResourceFieldRef-name" name="projected-volume-xxx-DownwardAPI-ResourceFieldRef-name">
+                                </select>
+                                  类型:<select style="width: 50px" id="projected-volume-xxx-DownwardAPI-ResourceFieldRef-type" name="projected-volume-xxx-DownwardAPI-ResourceFieldRef-type">
+                                  <option selected="true">requests.cpu</option>
+                                  <option selected="true">requests.memory</option>
+                                  <option selected="true">limits.cpu</option>
+                                  <option selected="true">limits.memory</option>
+                                </select>
+                                </div>
+                                <div style="float: left;width: 300px;height:18px;">
+                                  挂载路径: <input name="projected-volume-xxx-DownwardAPI-mountPath" class="required" style="" placeholder="相对于Mount目录" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                                </div>
+                                Mode: <input name="projected-volume-xxx-DownwardAPI-mountMode" class="number" style="width: 100px;" placeholder="权限" onkeyup="return inputSapceTrim(event,this);">
+                                <div id="projected-volume-xxx-DownwardAPI-Divisor" style="display: none">
+                                  Divisor: <input name="projected-volume-xxx-DownwardAPI-Divisor" class="" style="width: 100px;" value="1" onkeyup="return inputSapceTrim(event,this);">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-warning btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" onclick="deleteLabel('projected-volume-xxx')" id="del-volume">删除</a>
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <hr>
+
+            </div>
+            <div class="tab-pane" id="table-ingress">
+              <div id="ingress-temp">
+                <div class="form-group">
+                  <div class="switch primary">
+                    <input type="checkbox" onclick="healthCheck('ingress')" id="ingress" name="ingress" onkeyup="return inputSapceTrim(event,this);">
+                    <label for="ingress">添加Ingress:</label>
+                  </div>
+                  <input type="hidden" id="ingress-host-count" name="ingress-host-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                  <div id="ingress-check" style="display: none">
+                    <div class="container-ports">
+                      Ingress名称:<input type="text" class="required" id="ingress-name" placeholder="Ingress名称" name="ingress-name" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                    </div>
+                    <table id="ingress-table" class="table table-striped table-bordered display">
+                      <thead>
+                      <tr>
+                        <th style="color: whitesmoke">域名</th>
+                        <th style="color: whitesmoke; width: 100px">服务</th>
+                        <th style="color: whitesmoke; width: 20px">端口</th>
+                        <th style="color: whitesmoke">HTTPS</th>
+                        <th style="color: whitesmoke">证书(http无需选择)</th>
+                        <th style="color: whitesmoke;width: 50px">路径</th>
+                        <th style="color: whitesmoke">去除前缀</th>
+                        <th class="ico icon-list-add">
+                          <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                            <a style="color: whitesmoke" id="addIngressService" onclick="addEle('ingress-host-count','ingressHost','ingress-table','hostID', 'table','false','','')">添加</a>
+                          </button>
+                        </th>
+                      </tr>
+                      </thead>
+                      <tbody id="ingress-table-td">
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="table-services">
+              <div id="service-temp">
+                <div class="form-group">
+
+
+                  <div class="switch primary">
+                    <input type="checkbox" onclick="healthCheck('service')" id="service" name="service" onkeyup="return inputSapceTrim(event,this);">
+                    <label for="service">添加Service:</label>
+                  </div>
+                  <input type="hidden" id="service-port-count" name="service-port-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                  <div id="service-check" style="display: none">
+                    <div class="container-ports">
+                      Service名称:<input type="text" class="required" id="service-name" placeholder="服务名称" name="service-name" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+
+                      Service类型:
+                      <select name="service-type">
+                        <option selected="true">ClusterIP</option>
+                        <option>NodePort</option>
+                      </select>
+
+                    </div>
+                    <table id="service-table" class="table table-striped table-bordered display">
+
+                      <thead>
+                      <tr>
+                        <th style="color: whitesmoke">端口名称</th>
+                        <th style="color: whitesmoke">协议</th>
+                        <th style="color: whitesmoke">端口</th>
+                        <th style="color: whitesmoke">容器端口</th>
+                        <th style="color: whitesmoke">NodePort</th>
+                        <th class="ico icon-list-add">
+                          <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                            <a style="color: whitesmoke" id="addServicePort" onclick="addEle('service-port-count','servicePort','service-table','portID', 'table','false','')">添加</a>
+                          </button>
+                        </th>
+                      </tr>
+                      </thead>
+                      <tbody id="service-table-td">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ul class="pager wizard">
+              <li class="previous first disabled"><a href="javascript:;">First</a></li>
+              <li class="previous disabled"><a href="javascript:;">Previous</a></li>
+              <li class="next last"><a href="javascript:;">Last</a></li>
+              <li class="next"><a href="javascript:;">Next</a></li>
+              <li class="next finish hidden">
+                <div>
+                  <button style="height: 50px;" type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">
+                    <input id="submit" type="submit" value="Create" onkeyup="return inputSapceTrim(event,this);">
+                  </button>
+                  <a id="viewYaml" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light" style="color: whitesmoke;height: 50px;margin: 0 0 0 20px;" onclick="viewYaml('POST', '/ratel/create/daemonset?yaml=true')">View Yaml</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

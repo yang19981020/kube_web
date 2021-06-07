@@ -1,0 +1,151 @@
+<div class="layui-body">
+  <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>ServiceAccount</legend>
+  </fieldset>
+  <div class="layui-inline layui-row">
+    <label class="layui-card layui-btn-fluid layui-inline">
+      <span class="layui-card">namespace</span>
+      <select class="" name="interest" lay-filter="aihao" id="namespace_list_id" onchange="gradeChange(this.options[this.options.selectedIndex].text)">
+      </select>
+    </label>
+
+  </div>
+
+  <div class="layui-table-box">
+    <div class="layui-table-header">
+      <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+        <thead>
+          <tr role="row">
+            <th>Name</th>
+            <th>Namespace</th>
+            <th>Create Time</th>
+            <th>Secrets</th>
+            <th>Option</th>
+          </tr>
+        </thead>
+        <tbody id="serviceAccount_list_id">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button type="button" class="layui-btn layui-btn-lg">create</button>
+</div>
+<script>
+  $(document).ready(function (){
+    var getNamespaceList = {
+      "url": "/resource/namespace_list",
+      "method": "GET",
+      "timeout": 0,
+    };
+    $.ajax(getNamespaceList).done(function (response) {
+      for (let i in response.data.items) {
+        var namespace_list_id = document.getElementById("namespace_list_id");
+        var namespace_option = document.createElement("option");
+        namespace_option.innerText = response.data.items[i].metadata.name;
+        namespace_option.id = response.data.items[i].metadata.name;
+        namespace_option.value = response.data.items[i].metadata.name;
+        if (response.data.items[i].metadata.name === "default") {
+          namespace_option.selected = true
+        }
+        namespace_list_id.appendChild(namespace_option);
+      }
+    });
+
+    var serviceAccount_list = {
+      "url": "resource/serviceAccount_list",
+      "method": "GET",
+      "timeout": 0,
+    };
+    $.ajax(serviceAccount_list).done(function (response) {
+      for (let i in response.data.items) {
+        var serviceAccount_list_id = document.getElementById("serviceAccount_list_id");
+        var serviceAccount_list_tr = document.createElement("tr");
+        serviceAccount_list_tr.id = "serviceaccount"+response.data.items[i].metadata.name
+        serviceAccount_list_id.appendChild(serviceAccount_list_tr);
+        var serviceAccount_list_tr_id = document.getElementById("serviceaccount"+response.data.items[i].metadata.name);
+
+        var serviceAccount_list_td_name = document.createElement("td");
+        serviceAccount_list_td_name.id = response.data.items[i].metadata.name
+        serviceAccount_list_td_name.innerText = response.data.items[i].metadata.name
+        serviceAccount_list_tr_id.appendChild(serviceAccount_list_td_name);
+
+        var secrets_list_td_namespace = document.createElement("td");
+        secrets_list_td_namespace.id = response.data.items[i].metadata.namespace
+        secrets_list_td_namespace.innerText = response.data.items[i].metadata.namespace
+        serviceAccount_list_tr_id.appendChild(secrets_list_td_namespace);
+
+        var serviceAccount_list_td_time = document.createElement("td")
+        serviceAccount_list_td_time.id = response.data.items[i].metadata.creationTimestamp
+        serviceAccount_list_td_time.innerText = response.data.items[i].metadata.creationTimestamp
+        serviceAccount_list_tr_id.appendChild(serviceAccount_list_td_time);
+
+        var secrets_list_td_secrets = document.createElement("td")
+        secrets_list_td_secrets.id = JSON.stringify(response.data.items[i].secrets[0].name)
+        secrets_list_td_secrets.innerText = JSON.stringify(response.data.items[i].secrets[0].name)
+        serviceAccount_list_tr_id.appendChild(secrets_list_td_secrets);
+
+        var serviceAccount_list_tr_edit = document.createElement("td");
+        serviceAccount_list_tr_edit.id = response.data.items[i].metadata.name
+        serviceAccount_list_tr_edit.innerText = "edit"
+        serviceAccount_list_tr_edit.className = "layui-btn layui-btn-radius layui-btn-primary layui-btn-radius"
+        serviceAccount_list_tr_id.appendChild(serviceAccount_list_tr_edit);
+
+        var serviceAccount_list_tr_del = document.createElement("td");
+        serviceAccount_list_tr_del.id = response.data.items[i].metadata.name
+        serviceAccount_list_tr_del.innerText = "del"
+        serviceAccount_list_tr_del.className = "layui-btn layui-btn-radius layui-btn-primary layui-btn-radius"
+        serviceAccount_list_tr_id.appendChild(serviceAccount_list_tr_del);
+      }
+    });
+  });
+
+  var gradeChange = function (tx){
+    $("#serviceAccount_list_id").html("");
+    var serviceAccount_list = {
+      "url": "/resource/serviceAccount_list?namespace="+tx,
+      "method": "GET",
+      "timeout": 0,
+    };
+    $.ajax(serviceAccount_list).done(function (response) {
+      for (let i in response.data.items) {
+        var serviceAccount_list_id = document.getElementById("serviceAccount_list_id");
+        var serviceAccount_list_tr = document.createElement("tr");
+        serviceAccount_list_tr.id = "serviceaccount"+response.data.items[i].metadata.name
+        serviceAccount_list_id.appendChild(serviceAccount_list_tr);
+        var serviceAccount_list_tr_id = document.getElementById("serviceaccount"+response.data.items[i].metadata.name);
+
+        var serviceAccount_list_td_name = document.createElement("td");
+        serviceAccount_list_td_name.id = response.data.items[i].metadata.name
+        serviceAccount_list_td_name.innerText = response.data.items[i].metadata.name
+        serviceAccount_list_tr_id.appendChild(serviceAccount_list_td_name);
+
+        var secrets_list_td_namespace = document.createElement("td");
+        secrets_list_td_namespace.id = response.data.items[i].metadata.namespace
+        secrets_list_td_namespace.innerText = response.data.items[i].metadata.namespace
+        serviceAccount_list_tr_id.appendChild(secrets_list_td_namespace);
+
+        var serviceAccount_list_td_time = document.createElement("td")
+        serviceAccount_list_td_time.id = response.data.items[i].metadata.creationTimestamp
+        serviceAccount_list_td_time.innerText = response.data.items[i].metadata.creationTimestamp
+        serviceAccount_list_tr_id.appendChild(serviceAccount_list_td_time);
+
+        var secrets_list_td_secrets = document.createElement("td")
+        secrets_list_td_secrets.id = JSON.stringify(response.data.items[i].secrets[0].name)
+        secrets_list_td_secrets.innerText = JSON.stringify(response.data.items[i].secrets[0].name)
+        serviceAccount_list_tr_id.appendChild(secrets_list_td_secrets);
+
+        var serviceAccount_list_tr_edit = document.createElement("td");
+        serviceAccount_list_tr_edit.id = response.data.items[i].metadata.name
+        serviceAccount_list_tr_edit.innerText = "edit"
+        serviceAccount_list_tr_edit.className = "layui-btn layui-btn-radius layui-btn-primary layui-btn-radius"
+        serviceAccount_list_tr_id.appendChild(serviceAccount_list_tr_edit);
+
+        var serviceAccount_list_tr_del = document.createElement("td");
+        serviceAccount_list_tr_del.id = response.data.items[i].metadata.name
+        serviceAccount_list_tr_del.innerText = "del"
+        serviceAccount_list_tr_del.className = "layui-btn layui-btn-radius layui-btn-primary layui-btn-radius"
+        serviceAccount_list_tr_id.appendChild(serviceAccount_list_tr_del);
+      }
+    });
+  }
+</script>

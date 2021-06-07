@@ -1,0 +1,65 @@
+<div class="layui-body">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>PV</legend>
+    </fieldset>
+
+    <div class="layui-table-box">
+        <div class="layui-table-header">
+            <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+                <thead>
+                <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 150.667px;">Name</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Capacity: activate to sort column ascending" style="width: 78.6667px;">Capacity</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Access Modes: activate to sort column ascending" style="width: 124.667px;">Access Modes</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Reclaim Policy: activate to sort column ascending" style="width: 126.667px;">Reclaim Policy</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 59.6667px;">Status</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Claim: activate to sort column ascending" style="width: 204.667px;">Claim Ref</th>
+                    </thead>
+                <tbody id="pv_list_id">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button type="button" class="layui-btn layui-btn-lg">create</button>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        // get pod list
+        var getPodList = {
+            "url": "/resource/pv_list",
+            "method": "GET",
+            "timeout": 0,
+        };
+        $.ajax(getPodList).done(function (response) {
+            for (let i in response.data.items) {
+                var pv_list_id = document.getElementById("pv_list_id");
+                var pv_list_tr = document.createElement("tr");
+                pv_list_tr.id = response.data.items[i].metadata.name
+                pv_list_id.appendChild(pv_list_tr);
+                var pv_list_tr_td = document.getElementById(response.data.items[i].metadata.name);
+                var pv_list_tr_name = document.createElement("td");
+                pv_list_tr_name.id = response.data.items[i].metadata.name
+                pv_list_tr_name.innerText = response.data.items[i].metadata.name
+                pv_list_tr_td.appendChild(pv_list_tr_name);
+                var pod_list_td_Capacity = document.createElement("td");
+                pod_list_td_Capacity.id = response.data.items[i].spec.capacity.storage
+                pod_list_td_Capacity.innerText = response.data.items[i].spec.capacity.storage
+                pv_list_tr_td.appendChild(pod_list_td_Capacity);
+                var pv_list_td_accessModes = document.createElement("td");
+                pv_list_td_accessModes.id = response.data.items[i].spec.accessModes[0]
+                pv_list_td_accessModes.innerText = response.data.items[i].spec.accessModes[0]
+                pv_list_tr_td.appendChild(pv_list_td_accessModes);
+                var pv_list_td_persistentVolumeReclaimPolicy = document.createElement("td");
+                pv_list_td_persistentVolumeReclaimPolicy.id = response.data.items[i].spec.persistentVolumeReclaimPolicy
+                pv_list_td_persistentVolumeReclaimPolicy.innerText = response.data.items[i].spec.persistentVolumeReclaimPolicy
+                pv_list_tr_td.appendChild(pv_list_td_persistentVolumeReclaimPolicy);
+                var pv_list_td_status = document.createElement("td");
+                pv_list_td_status.id = response.data.items[i].status.phase
+                pv_list_td_status.innerText = response.data.items[i].status.phase
+                pv_list_tr_td.appendChild(pv_list_td_status);
+                var pv_list_td_claimRef = document.createElement("td");
+                pv_list_td_claimRef.id = response.data.items[i].spec.claimRef.name
+                pv_list_td_claimRef.innerText = response.data.items[i].spec.claimRef.name
+                pv_list_tr_td.appendChild(pv_list_td_claimRef);
+            }
+        });
+    });
+</script>
+

@@ -1,0 +1,120 @@
+<div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+            <legend>Node list</legend>
+        </fieldset>
+
+        <table class="layui-table" lay-filter="test">
+            <thead>
+            <tr>
+                <th>hostname</th>
+                <th>ip</th>
+                <th>cpu</th>
+                <th>可用cpu</th>
+                <th>可用memory</th>
+                <th>memory</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // alert Popups
+    let Box = {};
+    Box.close = () =>{
+        let body = document.body;
+        let modal = body.querySelectorAll(".box-modal");
+        modal.forEach((dom) => {
+            dom.parentNode.removeChild(dom);
+        })
+    };
+    Box.show = (boxhtml) => {
+        Box.close;
+        let Dom = document.createElement('div');
+        Dom.classList.add('box-modal');
+        Dom.style= " display: flex;\n" +
+            "            justify-content: center;\n" +
+            "            position: fixed;\n" +
+            "            left: 0; \n" +
+            "            top: 0;\n" +
+            "            right: 0;\n" +
+            "            bottom: 0;\n" +
+            "            z-index: 99999;"
+        Dom.innerHTML = boxhtml;
+        document.body.append(Dom);
+    };
+    function tuneEditor( editor , req) {
+        editor.setTheme("ace/theme/cobalt" );
+        editor.getSession().setMode("ace/mode/yaml" );
+        editor.setShowPrintMargin( true );
+        editor.setShowInvisibles( true );
+        editor.setReadOnly( false );
+        editor.focus(false);
+        editor.setHighlightActiveLine(false);
+        editor.setShowPrintMargin(false);
+        editor.insert(req);
+        editor.resize()
+    }
+    var click_node = function (node){
+        var nodename = node.parentNode.parentNode.childNodes[7].id;
+        $.ajax({url:"/resource/node_info?node="+nodename,success:function(result){
+            let innerhtml = `<div style="width:auto;height:auto;align-self:center">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;"><legend>Yaml</legend></fieldset>
+            <pre id="content" style="height: 600px; width: 600px"></pre>
+            <div style="text-align:center"><button class="layui-btn" onclick="Box.close()">取消</button></div>
+            </div>`
+            Box.show(innerhtml);
+            var contactEditor = ace.edit("content");
+            tuneEditor( contactEditor,result.data);
+        }});
+    };
+
+
+    $(document).ready(function (){
+        $.ajax({url:"/resource/node",success:function(result){
+            for (let i in result.data.items) {
+                var hostname = result.data.items[i].metadata.name
+                var ip =  result.data.items[i].status.addresses[1].address
+                var cpu_t = result.data.items[i].status.capacity.cpu
+                var cpu = result.data.items[i].status.allocatable.cpu
+                var mem = result.data.items[i].status.allocatable.memory
+                var mem_t = result.data.items[i].status.capacity.memory
+                // html
+                var element = document.getElementById("tableBody");
+                var td_dom1 = document.createElement("td");
+                td_dom1.innerText=hostname
+                element.appendChild(td_dom1);
+                var td_dom2 = document.createElement("td");
+                td_dom2.innerText=ip
+                element.appendChild(td_dom2);
+                var element = document.getElementById("tableBody");
+                var td_dom3 = document.createElement("td");
+                td_dom3.innerText=cpu
+                element.appendChild(td_dom3);
+                var td_dom4 = document.createElement("td");
+                td_dom4.innerText=cpu_t
+                element.appendChild(td_dom4);
+                var td_dom5 = document.createElement("td");
+                td_dom5.innerText=mem
+                element.appendChild(td_dom5);
+                var td_dom6 = document.createElement("td");
+                td_dom6.innerText=mem_t
+                element.appendChild(td_dom6);
+
+                var td_dom7 = document.createElement("td");
+                td_dom7.id = hostname
+                td_dom7.innerHTML += "<button id='node_info_btn' type='button' onclick='click_node(this)' >info</button>"
+                // td_dom7.innerText="info"
+                element.appendChild(td_dom7);
+           }
+        }});
+
+    });
+</script>

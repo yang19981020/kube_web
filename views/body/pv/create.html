@@ -1,0 +1,137 @@
+<div class="row">
+
+  <div class="">
+    <div class="box-content">
+      <h4 class="box-title" id="boxTitle">PersistentVolume</h4>
+      <form id="commentForm" method="post" resourcetype="pv" postresourceurl="/ratel/create/pv?method=Create" novalidate="novalidate">
+        <div id="tabsleft" class="tabbable tabs-left">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#table-metadata" data-toggle="tab" aria-expanded="true">Metadata</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="table-metadata">
+              <div>
+                <h4></h4>
+                <div class="row small-spacing">
+                  <div class="col-md-4 col-xs-12">
+                    <div class="form-group">
+                      <label>选择集群: </label>
+                      <select name="clusterSelect" style="background-color: transparent; color: whitesmoke" class="clusterSelect required" id="clusterSelect" aria-required="true">
+
+                        <option selected="true"></option>
+
+                        <option style="color: black;" selected="">
+                          cluster1
+                        </option>
+
+
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <div class="container-ports">
+                        <label for="deployment-name">PersistentVolume名称: </label>
+                        <input type="text" placeholder="请输入pv名称" value="" id="deployment-name" name="pv-name" class="required" zgotmplz="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                      </div>
+                      <div class="container-ports">
+                        <label for="deployment-name">StorageClass名称: </label>
+
+                        <input type="text" placeholder="请输入sc名称" id="service-name" name="sc-name" class="required" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+
+                      </div>
+                      <div>
+                        <div id="pv-permission-check">
+                          <div style="width: 200px">
+                            <div class="fs-wrap multiple"><div class="fs-label-wrap"><div class="fs-label" title="ReadWriteMany">ReadWriteMany</div><span class="fs-arrow"></span></div><div class="fs-dropdown hidden"><div class="fs-search"><input type="search" placeholder="搜索" onkeyup="return inputSapceTrim(event,this);"></div><div class="fs-options"><div class="fs-option selected" data-value="ReadWriteMany"><span class="fs-checkbox"><i></i></span><div class="fs-option-label">ReadWriteMany</div></div><div class="fs-option" data-value="ReadWriteOnce"><span class="fs-checkbox"><i></i></span><div class="fs-option-label">ReadWriteOnce</div></div><div class="fs-option" data-value="ReadOnlyMany"><span class="fs-checkbox"><i></i></span><div class="fs-option-label">ReadOnlyMany</div></div></div><div class="btnFixed"><button class="buttonDefault" id="selectAllBtn" type="button">全选</button><button class="buttonDefault" id="clearAllBtn" type="button">清空</button></div></div><select id="pv-permission-select" name="pv-permission-select" multiple="multiple" class="visibility-hidden">
+
+                              <option selected="">ReadWriteMany</option>
+                              <option>ReadWriteOnce</option>
+                              <option>ReadOnlyMany</option>
+
+                            </select></div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>回收策略: </label>
+                        <select name="reclaim-policy" style="background-color: transparent; color: whitesmoke" class="clusterSelect required" id="reclaim-policy" aria-required="true">
+                          <option selected="">Retain</option>
+                          <option>Recycle</option>
+                          <option>Delete</option>
+
+                        </select>
+                      </div>
+                      <label>存储类型:</label>
+                      <select id="storage-type" name="storage-type" onchange="containerCheckoutOption('storage-type')">
+                        <option></option>
+                        <option>NFS</option>
+                        <option>Local</option>
+
+                      </select>
+                      <div id="storage-type-NFS" class="storage-type-arg" style="display:none;">
+                        <div class="container-ports">
+                          NFS服务器地址: <input value="" zgotmplz="" type="text" class="required" placeholder="nfs server" name="storage-type-NFS-server" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                        </div>
+                        <div class="container-ports">
+                          NFS服务器目录: <input value="" zgotmplz="" type="text" class="required" placeholder="nfs path" name="storage-type-NFS-path" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                        </div>
+                        <div class="container-ports">
+                          存储空间大小（Gi）: <input value="" type="text" class="required number" placeholder="nfs size" name="storage-type-NFS-size" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                        </div>
+                      </div>
+                      <div id="storage-type-Local" class="storage-type-arg" style="display:none;">
+                        <div class="container-ports">
+                          存储空间大小（Gi）: <input value="" type="text" class="required number" placeholder="local size" name="storage-type-Local-size" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                        </div>
+                        <div class="container-ports">
+                          服务器本地目录: <input value="" zgotmplz="" type="text" class="required" placeholder="挂载的本地路径" name="storage-type-Local-local-path" required="" aria-required="true" onkeyup="return inputSapceTrim(event,this);">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group" id="nodeAffinity-Local" style="display: none" zgotmplz="">
+                  <label for="nodeaffinity-required-table">Local PV必须配置节点亲和力: </label>
+
+
+                  <input type="hidden" id="nodeaffinity-required-count" name="nodeaffinity-required-count" value="0" readonly="" onkeyup="return inputSapceTrim(event,this);">
+                  <table id="nodeaffinity-required-table" class="table table-striped table-bordered display">
+                    <thead>
+                    <tr>
+                      <th style="color: whitesmoke">Node标签</th>
+                      <th class="ico icon-list-add">
+                        <button type="button" class="btn btn-info btn-xs waves-effect waves-light">
+                          <a style="color: whitesmoke" onclick="addEle('nodeaffinity-required-count','nodeAffinityRequired','nodeaffinity-required-table','xxx', 'tbody','false','')">添加</a>
+                        </button>
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody id="nodeaffinity-required-table-td">
+
+
+                    </tbody>
+                  </table>
+                </div>
+
+                <hr>
+              </div>
+              <ul class="pager wizard">
+                <li class="next finish disabled">
+                  <div>
+
+                    <button style="height: 50px;" type="button" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light">
+                      <input id="submit" type="submit" value="Create" onkeyup="return inputSapceTrim(event,this);">
+                    </button>
+
+                    <a id="viewYaml" class="btn btn-primary btn-rounded btn-bordered waves-effect waves-light" style="color: whitesmoke;height: 50px;margin: 0 0 0 20px;" onclick="viewYaml('POST', '/ratel/create/pv?yaml=true')">View Yaml</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

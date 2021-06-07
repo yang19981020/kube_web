@@ -1,0 +1,54 @@
+<div class="layui-body">
+  <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>ClusterRoleBinding</legend>
+  </fieldset>
+
+
+  <div class="layui-table-box">
+    <div class="layui-table-header">
+      <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+        <thead>
+        <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 1194px;">Name</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Option: activate to sort column ascending" style="width: 454px;">Option</th></tr>
+        </thead>
+        <tbody id="cluster_role_binding_list_id">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button type="button" class="layui-btn layui-btn-lg">create</button>
+</div>
+<script type="text/javascript">
+  $(document).ready(function (){
+    var cluster_role_binding_list_id = {
+      "url": "/resource/clusterRoleBinding_list",
+      "method": "GET",
+      "timeout": 0,
+    };
+    $.ajax(cluster_role_binding_list_id).done(function (response) {
+      for (let i in response.data.items) {
+        var clusterRole_list_id = document.getElementById("cluster_role_binding_list_id");
+        var clusterRole_list_tr = document.createElement("tr");
+        clusterRole_list_tr.id = response.data.items[i].metadata.name
+        clusterRole_list_id.appendChild(clusterRole_list_tr);
+        var clusterRole_list_tr_id = document.getElementById(response.data.items[i].metadata.name);
+
+        var clusterRole_list_td_name = document.createElement("td");
+        clusterRole_list_td_name.id = response.data.items[i].metadata.name
+        clusterRole_list_td_name.innerText = response.data.items[i].metadata.name
+        clusterRole_list_tr_id.appendChild(clusterRole_list_td_name);
+
+        var clusterRole_list_td_edit = document.createElement("td");
+        clusterRole_list_td_edit.id = response.data.items[i].metadata.name
+        clusterRole_list_td_edit.innerText = "edit"
+        clusterRole_list_td_edit.className = "layui-btn layui-btn-radius layui-btn-primary layui-btn-radius"
+        clusterRole_list_tr_id.appendChild(clusterRole_list_td_edit);
+
+        var clusterRole_list_td_del = document.createElement("td");
+        clusterRole_list_td_del.id = response.data.items[i].metadata.name
+        clusterRole_list_td_del.innerText = "del"
+        clusterRole_list_td_del.className = "layui-btn layui-btn-radius layui-btn-primary layui-btn-radius"
+        clusterRole_list_tr_id.appendChild(clusterRole_list_td_del);
+      }
+    });
+  });
+</script>

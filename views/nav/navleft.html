@@ -1,0 +1,41 @@
+<div class="layui-side">
+  <div class="layui-side-scroll">
+    <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+    <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+      <li class="layui-nav-item layui-nav-itemed"> <!-- 管理员 -->
+        <a href="javascript:;">资源配置</a>
+        <dl class="layui-nav-child">
+          <dd><a href="/pod">pod</a></dd>
+          <dd><a href="/deployment">Deployments</a></dd>
+          <dd><a href="/stateful_set">StatefulSets</a></dd>
+          <dd><a href="/daemon_set">DaemonSets</a></dd>
+          <dd><a href="/service">Services</a></dd>
+          <dd><a href="/endpoint">EndPoint</a></dd>
+          <dd><a href="/namespace">Namespaces</a></dd>
+          <dd><a href="/config_map">ConfigMap</a></dd>
+          <dd><a href="/secrets">Secrets</a></dd>
+        </dl>
+      </li>
+
+      <li class="layui-nav-item layui-nav-itemed"> <!-- 管理员 -->
+        <a href="javascript:;">权限配置</a>
+        <dl class="layui-nav-child">
+          <dd><a href="/role">Role</a></dd>
+          <dd><a href="/cluster_role">ClusterRole</a></dd>
+          <dd><a href="/role_binding">RoleBinding</a></dd>
+          <dd><a href="/cluster_role_binding">ClusterRoleBinding</a></dd>
+          <dd><a href="/service_account">用户权限配置</a></dd>
+        </dl>
+      </li>
+
+      <li class="layui-nav-item layui-nav-itemed"> <!-- 管理员 -->
+        <a href="javascript:;">存储配置</a>
+        <dl class="layui-nav-child">
+          <dd><a href="/pv">PersistentVolume</a></dd>
+          <dd><a href="/pvc">PersistentVolumeClaim</a></dd>
+        </dl>
+      </li>
+
+    </ul>
+  </div>
+</div>
