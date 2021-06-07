@@ -65,7 +65,7 @@
       </template>
     </el-table-column>
 
-    <el-table-column type="expand" label="">
+    <el-table-column type="expand" label="操作">
       <template #default="scope">
         <el-form label-position="top" inline class="demo-table-expand" v-for="info in scope.row.containerInfo" :key="info">
           <el-form-item label="Conn">
@@ -90,14 +90,6 @@
             <el-radio v-model="shell" label="sh">sh</el-radio>
           </el-form-item>
         </el-form>
-      </template>
-    </el-table-column>
-
-    <el-table-column label="操作">
-      <template #default="scope">
-        <el-button
-          size="mini"
-          @click="handleYaml(scope.row)">yaml</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -159,17 +151,6 @@ export default defineComponent({
     })
 
     const router = useRouter()
-    const handleYaml = (row) => {
-      console.log(row.name,row.namespace,);
-      //路由跳转带参数
-      // router.push({
-      //   path:"/",
-      //   query:{
-      //     id:"2"
-      //   }
-      // })
-
-    }
     const handleConn = (row, info, sh) => {
       // 路由跳转带参数
       router.push({
@@ -202,7 +183,6 @@ export default defineComponent({
       Namespace_list,
       Pod_list,
       value,
-      handleYaml,
       handleConn,
       shell,
       changeNamespace,
