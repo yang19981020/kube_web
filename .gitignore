@@ -13,6 +13,8 @@
 yarn.lock
 package-lock.json
 
+.kube_web.exe
+kube_web.exe
 # IDEs and editors
 /.idea
 .project
