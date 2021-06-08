@@ -16,7 +16,7 @@ var (
 	client *kubernetes.Clientset
 )
 func newClient() *kubernetes.Clientset {
-	if kub_config_path,err = beego.AppConfig.String("kubeconfigpath"); err != nil {
+	if kub_config_path,err = beego.AppConfig.String("configPath"); err != nil {
 		panic(err.Error())
 	}
 	config = flag.String("kubeconfig", kub_config_path, "absolute path to the kubeconfig file")
@@ -36,7 +36,7 @@ func getRestConf()  (kube_conf *rest.Config) {
 		kubeconfig []byte
 		err error
 	)
-	if kub_config_path,err = beego.AppConfig.String("kubeconfigpath"); err != nil {
+	if kub_config_path,err = beego.AppConfig.String("configPath"); err != nil {
 		panic(err.Error())
 	}
 	if kubeconfig, err = ioutil.ReadFile(kub_config_path); err != nil {
