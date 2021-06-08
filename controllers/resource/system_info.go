@@ -5,7 +5,6 @@ import (
 	"kube_web/utils/response"
 	"kube_web/utils/system"
 )
-
 type SystemInfoController struct {
 	beego.Controller
 }

@@ -1,9 +1,3 @@
-// @APIVersion 1.0.0
-// Title kube_web API
-// Description 给k8s_vite 提供接口
-// @Contact 1216108213@qq.com
-// @TermsOfServiceUrl http://127.0.0.1:8080/swagger/
-// @License Apache 2.0
 package routers
 
 import (

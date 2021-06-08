@@ -14,7 +14,7 @@ go mod tidy
 ### 启动项目
 
 ```sh
-bee run -gendoc=true
+bee run 
 ```
 
 ### 项目打包
@@ -22,4 +22,3 @@ bee run -gendoc=true
 ```sh
 bee pack
 ```
-
