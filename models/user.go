@@ -1,91 +1,71 @@
 package models
 
 import (
-	"errors"
-	"strconv"
 	"time"
+
+	"github.com/beego/beego/v2/client/orm"
 )
 
-var (
-	UserList map[string]*User
-)
-
-func init() {
-	UserList = make(map[string]*User)
-	u := User{"user_11111", "astaxie", "11111", Profile{"male", 20, "Singapore", "astaxie@gmail.com"}}
-	UserList["user_11111"] = &u
-}
-
+//用户表
 type User struct {
-	Id       string
-	Username string
-	Password string
-	Profile  Profile
+	Id            int64
+	Username      string `json:"name",orm:"unique"` //这个拼音的简写
+	Nickname      string //中文名，注意这里，很多都要查询中文名才行`orm:"unique;size(32)" form:"Nickname" valid:"Required;MaxSize(20);MinSize(2)"`
+	Password      string
+	Repassword    string `orm:"-" form:"Repassword" valid:"Required" form:"-"`
+	Email         string `orm:"size(32)" form:"Email" valid:"Email"`
+	Department    string //分院
+	Secoffice     string //科室,这里应该用科室id，才能保证即时重名也不怕。否则，查看科室必须要上溯到分院才能避免科室名称重复问题
+	Remark        string `orm:"null;size(200)" form:"Remark" valid:"MaxSize(200)"`
+	Ip            string //ip地址
+	Port          string
+	Status        int       `orm:"default(1)";form:"Status";valid:"Range(1,2)"`
+	Lastlogintime time.Time `orm:"type(datetime);auto_now_add" form:"-"`
+	Createtime    time.Time `orm:"type(datetime);auto_now_add" `
+	Updated       time.Time `orm:"type(datetime);auto_now_add" `
+	Role          string    `json:"role";orm:"default('4')"` //这个不是角色，这个无意义
+	// Roles         []*Role   `orm:"rel(m2m)"`
 }
 
-type Profile struct {
-	Gender  string
-	Age     int
-	Address string
-	Email   string
+//用户和openid对应表,一个用户对应多个openid
+type UserOpenID struct {
+	Id     int64
+	Uid    int64
+	OpenID string
 }
 
-type LoginRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+//用户和AvatorUrl对应表,一个用户对应多个AvatorUrl
+type UserAvatar struct {
+	Id         int64
+	Uid        int64
+	AvatarUrl  string
+	Createtime time.Time `orm:"type(datetime);auto_now_add" `
 }
 
-func AddUser(u User) string {
-	u.Id = "user_" + strconv.FormatInt(time.Now().UnixNano(), 10)
-	UserList[u.Id] = &u
-	return u.Id
+//用户和AppreciationUrl对应表,一个用户对应多个AppreciationUrl
+type UserAppreciation struct {
+	Id              int64
+	Uid             int64
+	AppreciationUrl string
+	Createtime      time.Time `orm:"type(datetime);auto_now_add" `
 }
 
-func GetUser(uid string) (u *User, err error) {
-	if u, ok := UserList[uid]; ok {
-		return u, nil
-	}
-	return nil, errors.New("User not exists")
+func init() { //
+	orm.RegisterModel(new(User), new(UserOpenID), new(UserAvatar), new(UserAppreciation))
 }
 
-func GetAllUsers() map[string]*User {
-	return UserList
-}
-
-func UpdateUser(uid string, uu *User) (a *User, err error) {
-	if u, ok := UserList[uid]; ok {
-		if uu.Username != "" {
-			u.Username = uu.Username
-		}
-		if uu.Password != "" {
-			u.Password = uu.Password
-		}
-		if uu.Profile.Age != 0 {
-			u.Profile.Age = uu.Profile.Age
-		}
-		if uu.Profile.Address != "" {
-			u.Profile.Address = uu.Profile.Address
-		}
-		if uu.Profile.Gender != "" {
-			u.Profile.Gender = uu.Profile.Gender
-		}
-		if uu.Profile.Email != "" {
-			u.Profile.Email = uu.Profile.Email
-		}
-		return u, nil
-	}
-	return nil, errors.New("User Not Exist")
-}
-
-func Login(username, password string) bool {
-	for _, u := range UserList {
-		if u.Username == username && u.Password == password {
-			return true
+//这个是使用的，下面那个adduser不知干啥的
+func SaveUser(user User) (uid int64, err error) {
+	o := orm.NewOrm()
+	var user1 User
+	//判断是否有重名
+	err = o.QueryTable("user").Filter("username", user.Username).One(&user1, "Id")
+	if err == orm.ErrNoRows { //Filter("tnumber", tnumber).One(topic, "Id")==nil则无法建立
+		// 没有找到记录
+		uid, err = o.Insert(&user)
+		if err != nil {
+			return uid, err
 		}
 	}
-	return false
-}
-
-func DeleteUser(uid string) {
-	delete(UserList, uid)
+	return uid, err
 }

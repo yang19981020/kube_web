@@ -28,20 +28,14 @@ func init() {
 		beego.NSRouter("/namespace_list", &resource.NamespaceController{},"get:NamespaceListApi"),
 		beego.NSRouter("/pod_list", &resource.PodController{},"get:PodListApi"),
 		beego.NSRouter("/node_list", &resource.NodeListController{},"get:NodeListApi"),
+	    beego.NSRouter("/pod", &resource.PodController{}),
+	    beego.NSRouter("/deployment", &resource.DeploymentsController{}),
+	    beego.NSRouter("/namespace", &resource.NamespaceController{}),
+	    beego.NSRouter("/service", &resource.ServicesController{}),
+	    beego.NSRouter("/pvc", &resource.PvcController{}),
 	)
 	beego.Handler("/resource/websocket",&controllers.WsConnection{},true)
 	ns1 := beego.NewNamespace("/v1",
-		beego.NSNamespace("/object",
-			beego.NSInclude(
-				&controllers.ObjectController{},
-			),
-		),
-		beego.NSNamespace("/user",
-			beego.NSInclude(
-				&controllers.UserController{},
-			),
-		),
-
-	)
+		)
 	beego.AddNamespace(ns,ns1)
 }
