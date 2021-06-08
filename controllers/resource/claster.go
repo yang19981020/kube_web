@@ -5,7 +5,7 @@ import (
 	beego "github.com/beego/beego/v2/server/web"
 	"github.com/gogf/gf/frame/g"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	utils2 "kube_web/utils"
+	utils "kube_web/utils"
 	"kube_web/utils/response"
 )
 
@@ -19,7 +19,7 @@ func (c *ClasterController) Get() {
 }
 
 func (c *ClasterController) ClusterInfo(){
-	client := utils2.K8sClient
+	client := utils.K8sClient
 	node_list, _ := client.CoreV1().Nodes().List(context.Background(),v1.ListOptions{})
 	servicelist, _ := client.CoreV1().Services("").List(context.Background(),v1.ListOptions{})
 	pod_list, _ := client.CoreV1().Pods("").List(context.Background(),v1.ListOptions{})

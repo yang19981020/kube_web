@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/StackExchange/wmi v0.0.0-20210224194228-fe8f1750fd46 // indirect
 	github.com/beego/beego/v2 v2.0.1
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/go-ole/go-ole v1.2.5 // indirect
 	github.com/gogf/gf v1.16.2
 	github.com/gorilla/websocket v1.4.2
