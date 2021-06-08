@@ -1,7 +1,6 @@
 package utils
 
-
-import(
+import (
 	"crypto/rand"
 	"errors"
 	"fmt"

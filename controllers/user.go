@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"kube_web/models"
 	"encoding/json"
+	"kube_web/models"
 
 	beego "github.com/beego/beego/v2/server/web"
 )

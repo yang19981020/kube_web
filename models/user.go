@@ -2,117 +2,85 @@ package models
 
 import (
 	"errors"
-	"github.com/beego/beego/v2/adapter/logs"
-	"github.com/beego/beego/v2/adapter/orm"
-	"kube_web/utils"
-	"net/http"
+	"strconv"
+	"time"
 )
 
-type LoginRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-type LoginResponse struct {
-	Username string `json:"username"`
-	UserID int `json:"user_id"`
-	Token string `json:"token"`
+var (
+	UserList map[string]*User
+)
+
+func init() {
+	UserList = make(map[string]*User)
+	u := User{"user_11111", "astaxie", "11111", Profile{"male", 20, "Singapore", "astaxie@gmail.com"}}
+	UserList["user_11111"] = &u
 }
 
 type User struct {
-	Id int
+	Id       string
 	Username string
-	Salt string
 	Password string
+	Profile  Profile
 }
 
-func DoLogin(lr *LoginRequest) (*LoginResponse, int, error){
-	// get username and password
-	username := lr.Username
-	password := lr.Password
-
-	// validate user name and password is they are empty
-	if len(username) == 0 || len(password) == 0 {
-		return nil, http.StatusBadRequest,errors.New("error: username or password is empty")
-	}
-
-	o := orm.NewOrm()
-
-	// check if the username exists
-	user := &User{Username: username}
-	err := o.Read(user,"Username")
-	if err != nil {
-		return nil, http.StatusBadRequest, errors.New("error: username doesn't exist")
-	}
-
-	// generate the password hash
-	hash, err := utils.GeneratePassHash(password,user.Salt)
-	if err != nil {
-		return nil, http.StatusBadRequest, err
-	}
-	if hash != user.Password {
-		return nil, http.StatusBadRequest,errors.New("error: password is error")
-	}
-
-	// generate token
-	tokenString, err := utils.GenerateToken(lr, user.Id, 0)
-	if err != nil {
-		return nil, http.StatusBadRequest, err
-	}
-
-	return &LoginResponse{
-		Username: user.Username,
-		UserID: user.Id,
-		Token: tokenString,
-	},http.StatusOK,nil
+type Profile struct {
+	Gender  string
+	Age     int
+	Address string
+	Email   string
 }
 
-type CreateRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-type CreateResponse struct {
-	UserID  int `json:"user_id"`
-	Username string `json:"username"`
+func AddUser(u User) string {
+	u.Id = "user_" + strconv.FormatInt(time.Now().UnixNano(), 10)
+	UserList[u.Id] = &u
+	return u.Id
 }
 
-func DoCreateUser(cr *CreateRequest)(*CreateResponse,int,error){
-	o := orm.NewOrm()
-
-	// check if username exists
-	userNameCheck := User{Username: cr.Username}
-	err := o.Read(&userNameCheck,"Username")
-	if err == nil {
-		return nil, http.StatusBadRequest, errors.New("username has already existed")
+func GetUser(uid string) (u *User, err error) {
+	if u, ok := UserList[uid]; ok {
+		return u, nil
 	}
+	return nil, errors.New("User not exists")
+}
 
-	//generate salt
-	saltKey, err := utils.GenerateSalt()
-	if err != nil {
-		logs.Info(err.Error())
-		return nil, http.StatusBadRequest, err
+func GetAllUsers() map[string]*User {
+	return UserList
+}
+
+func UpdateUser(uid string, uu *User) (a *User, err error) {
+	if u, ok := UserList[uid]; ok {
+		if uu.Username != "" {
+			u.Username = uu.Username
+		}
+		if uu.Password != "" {
+			u.Password = uu.Password
+		}
+		if uu.Profile.Age != 0 {
+			u.Profile.Age = uu.Profile.Age
+		}
+		if uu.Profile.Address != "" {
+			u.Profile.Address = uu.Profile.Address
+		}
+		if uu.Profile.Gender != "" {
+			u.Profile.Gender = uu.Profile.Gender
+		}
+		if uu.Profile.Email != "" {
+			u.Profile.Email = uu.Profile.Email
+		}
+		return u, nil
 	}
+	return nil, errors.New("User Not Exist")
+}
 
-	// generate password hash
-	hash, err := utils.GeneratePassHash(cr.Password,saltKey)
-	if err != nil {
-		logs.Info(err.Error())
-		return nil, http.StatusBadRequest,err
+func Login(username, password string) bool {
+	for _, u := range UserList {
+		if u.Username == username && u.Password == password {
+			return true
+		}
 	}
+	return false
+}
 
-	// create user
-	user := User{}
-	user.Username = cr.Username
-	user.Password = hash
-	user.Salt = saltKey
-
-	_, err = o.Insert(&user)
-	if err != nil {
-		logs.Info(err.Error())
-		return nil, http.StatusBadRequest,err
-	}
-
-	return &CreateResponse{
-		UserID:user.Id,
-		Username: user.Username,
-	}, http.StatusOK,nil
+func DeleteUser(uid string) {
+	delete(UserList, uid)
 }
