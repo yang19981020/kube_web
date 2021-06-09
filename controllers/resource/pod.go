@@ -30,12 +30,14 @@ func (c *PodController) Get() {
 	get_podname := c.GetString("podName", "")
 	client := s.New()
 	pod, err := client.GetPod(get_namespace, get_podname)
+	fmt.Println(pod)
     if err != nil {
 		json := models.NewError(400, models.ErrGetPOD.Error())
 		c.Data["json"] = json
 		c.ServeJSON()
 	}
 	c.Data["json"] = response.Json(200,"ok", pod)
+	c.ServeJSON()
 }
 
 func (c *PodController) Post()() {
