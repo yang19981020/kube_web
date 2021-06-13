@@ -1,0 +1,6 @@
+2021/06/13 21:21:15.092  [E] [log.go:306]  Authorization is nil
+2021/06/13 21:30:55.611  [E] [log.go:306]  signature is invalid
+2021/06/13 21:31:22.190  [E] [log.go:306]  signature is invalid
+2021/06/13 21:36:24.184  [E] [log.go:306]  signature is invalid
+2021/06/13 22:17:01.621  [E] [log.go:306]  signature is invalid
+2021/06/13 22:19:21.619  [E] [log.go:306]  signature is invalid

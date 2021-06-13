@@ -2,8 +2,8 @@ package resource
 
 import (
 	beego "github.com/beego/beego/v2/server/web"
-	"kube_web/utils/response"
-	"kube_web/utils/system"
+	"kube_web/common/response"
+	"kube_web/common/system"
 )
 type SystemInfoController struct {
 	beego.Controller

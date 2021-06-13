@@ -1,55 +1,60 @@
 package main
 
 import (
-	"fmt"
+	"github.com/beego/beego/v2/adapter/logs"
 	"github.com/beego/beego/v2/client/orm"
-	"github.com/beego/beego/v2/core/logs"
 	beego "github.com/beego/beego/v2/server/web"
-	beegoormadapter "github.com/casbin/beego-orm-adapter/v3"
-	"github.com/casbin/casbin/v2"
 	_ "github.com/go-sql-driver/mysql"
 	_ "kube_web/routers"
+	"time"
 )
 
-func init() {
-	// 参数4(可选)  设置最大空闲连接
-	// 参数5(可选)  设置最大数据库连接 (go >= 1.2)
-	maxIdle := 30
-	maxConn := 30
+func dbinit()  {
+	runmode,_ := beego.AppConfig.String("runmode")
+	isDev := (runmode == "dev")
+	registDatabase()
+	if isDev {
+		orm.Debug = isDev
+		// 非强制模式下自动建表
+		err := orm.RunSyncdb("default", false, isDev)
+		if err != nil {
+			logs.Informational("[orm] Create table err : ", err)
+		}
+	}
+}
+func registDatabase()  {
+	//初始化数据库
+	dbUser, _ := beego.AppConfig.String("mysqluser")
+	dbPass, _ := beego.AppConfig.String("mysqlpass")
+	dbName, _ := beego.AppConfig.String("mysqldb")
+	dbHost, _ := beego.AppConfig.String("mysqlhost")
+	dbPort, _ := beego.AppConfig.String("mysqlport")
+	maxIdleConn, _ := beego.AppConfig.Int("db_max_idle_conn")
+	maxOpenConn, _ := beego.AppConfig.Int("db_max_open_open")
 	orm.RegisterDriver("mysql", orm.DRMySQL)
-	orm.RegisterDataBase("default", "mysql", "root:123123Aa..@tcp(114.67.110.204:3306)/testdb?charset=utf8",orm.MaxIdleConnections(maxIdle), orm.MaxOpenConnections(maxConn))
-	orm.Debug = true
-	//file, err := os.Create("orm.txt")
-	//if err != nil {
-	//	logs.Warn("open file fail")
-	//	os.Exit(1)
-	//}
-	//orm.DebugLog = orm.NewLog(file)
+	orm.RegisterDataBase("default","mysql",
+		dbUser+":"+dbPass+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"?charset=utf8&parseTime=true&loc=Asia%2FShanghai",
+	)
+	orm.MaxIdleConnections(maxIdleConn)
+	orm.MaxOpenConnections(maxOpenConn)
+	orm.DefaultTimeLoc = time.UTC
+}
+func loginit()  {
+	//日志
+	logs.Async()
+	level, _ := beego.AppConfig.Int("logLevel")
+	logs.SetLevel(level)
+	logs.SetLogger(logs.AdapterMultiFile, `{"filename":"./logs/kube_web.log",
+	"level":6,"maxlines":0,"maxsize":0,"daily":true,"maxdays":30,
+	"separate":["emergency", "alert", "critical", "error", "warning", "notice", "info"]}`)
+}
 
-	a, err := beegoormadapter.NewAdapter("default1", "mysql", "root:123123Aa..@tcp(114.67.110.204:3306)/testdb?charset=utf8") // Your driver and data source.
-	if err != nil {
-		logs.Warn(err)
-	}
-	e, err := casbin.NewEnforcer("conf/rbac_model.conf", a)
-	if err != nil {
-		logs.Warn(err)
-	}
-	// Check the permission.
-	enforce, err := e.Enforce("alice", "data1", "read") // 用户 资源 权限
-	fmt.Println(enforce,err)
-	policy, err := e.AddPolicy("alice", "data1", "read")
-	fmt.Println(policy,err)
-	//removePolicy, err := e.RemovePolicy("alice", "data1", "read")
-	//fmt.Println(removePolicy,err)
 
-	// Save the policy back to DB.
-	e.SavePolicy()
+func init() {
+	dbinit()
+	loginit()
 }
 
 func main() {
-	if beego.BConfig.RunMode == "dev" {
-		beego.BConfig.WebConfig.DirectoryIndex = true
-		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
-	}
 	beego.Run()
 }

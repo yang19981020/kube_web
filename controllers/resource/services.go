@@ -5,7 +5,7 @@ import (
 	"kube_web/models"
 	m "kube_web/models/resource"
 	s "kube_web/services/resource"
-	"kube_web/utils/response"
+	"kube_web/common/response"
 )
 
 type ServicesController struct {

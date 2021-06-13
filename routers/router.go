@@ -36,6 +36,8 @@ func init() {
 	)
 	beego.Handler("/resource/websocket",&controllers.WsConnection{},true)
 	ns1 := beego.NewNamespace("/v1",
+		beego.NSRouter("/picCode", &controllers.Login{},"get:Captcha"),
+		beego.NSRouter("/login", &controllers.Login{},"post:Login"),
 		)
 	beego.AddNamespace(ns,ns1)
 }

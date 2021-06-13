@@ -2,10 +2,10 @@ package resource
 
 import (
 	beego "github.com/beego/beego/v2/server/web"
+	"kube_web/common/response"
 	"kube_web/models"
 	m "kube_web/models/resource"
 	s "kube_web/services/resource"
-	"kube_web/utils/response"
 )
 
 type DeploymentsController struct {

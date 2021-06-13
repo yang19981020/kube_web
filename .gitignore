@@ -5,7 +5,9 @@
 /dist-ssr
 /tmp
 /out-tsc
-
+/logs
+/tests
+/bin
 # dependencies
 /k8s_vite/node_modules
 /k8s_vite/.idea

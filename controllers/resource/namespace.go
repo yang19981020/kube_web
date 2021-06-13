@@ -4,10 +4,10 @@ import (
 	"context"
 	beego "github.com/beego/beego/v2/server/web"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kube_web/common"
+	"kube_web/common/response"
 	"kube_web/models"
 	s "kube_web/services/resource"
-	"kube_web/utils"
-	"kube_web/utils/response"
 )
 
 type NamespaceController struct {
@@ -15,7 +15,7 @@ type NamespaceController struct {
 }
 
 func (c *NamespaceController) NamespaceListApi() {
-	client := utils.K8sClient
+	client := common.K8sClient
 	namespaceList,_ := client.CoreV1().Namespaces().List(context.Background(),v1.ListOptions{})
 	json := response.Json(200, "ok", namespaceList)
 	c.Data["json"] = json

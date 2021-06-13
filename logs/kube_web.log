@@ -1,0 +1,51 @@
+2021/06/13 21:19:50.173  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/13 21:19:50.173  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 21:21:12.880  [I] [parser.go:413]  generate router from comments
+2021/06/13 21:21:12.881  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 21:21:15.092  [E] [log.go:306]  Authorization is nil
+2021/06/13 21:21:46.712  [I] [parser.go:413]  generate router from comments
+2021/06/13 21:21:46.713  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 21:21:50.280  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/13 21:21:50.280  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 21:29:21.123  [I] [log.go:331]  =======currentUser======
+2021/06/13 21:30:04.671  [I] [parser.go:413]  generate router from comments
+2021/06/13 21:30:04.673  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 21:30:55.611  [E] [log.go:306]  signature is invalid
+2021/06/13 21:31:22.190  [E] [log.go:306]  signature is invalid
+2021/06/13 21:32:17.949  [I] [parser.go:413]  generate router from comments
+2021/06/13 21:32:17.950  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 21:33:23.702  [I] [log.go:331]  =======currentUser======
+2021/06/13 21:36:01.732  [I] [parser.go:413]  generate router from comments
+2021/06/13 21:36:01.733  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 21:36:24.184  [E] [log.go:306]  signature is invalid
+2021/06/13 22:03:51.146  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/13 22:03:51.146  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:15:31.376  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/13 22:15:31.376  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:17:01.621  [E] [log.go:306]  signature is invalid
+2021/06/13 22:19:18.773  [I] [parser.go:413]  generate router from comments
+2021/06/13 22:19:18.777  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:19:21.619  [E] [log.go:306]  signature is invalid
+2021/06/13 22:20:14.966  [I] [parser.go:413]  generate router from comments
+2021/06/13 22:20:14.968  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:25:32.780  [I] [parser.go:413]  generate router from comments
+2021/06/13 22:25:32.782  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:25:34.726  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/13 22:25:34.726  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:34:21.169  [I] [parser.go:413]  generate router from comments
+2021/06/13 22:34:21.171  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:35:33.580  [I] [log.go:331]  =======currentUser======
+2021/06/13 22:35:47.996  [I] [log.go:331]  =======currentUser======
+2021/06/13 22:35:52.000  [I] [log.go:331]  =======currentUser======
+2021/06/13 22:35:59.562  [I] [log.go:331]  =======currentUser======
+2021/06/13 22:36:13.475  [I] [log.go:331]  =======currentUser======
+2021/06/13 22:36:19.839  [I] [log.go:331]  =======currentUser======
+2021/06/13 22:36:52.764  [I] [parser.go:413]  generate router from comments
+2021/06/13 22:36:52.765  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:37:42.762  [I] [log.go:331]  =======currentUser======
+2021/06/13 22:38:22.701  [I] [parser.go:413]  generate router from comments
+2021/06/13 22:38:22.703  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:38:34.893  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/13 22:38:34.893  [I] [server.go:241]  http server Running on http://:8080
+2021/06/13 22:38:53.736  [I] [parser.go:413]  generate router from comments
+2021/06/13 22:38:53.737  [I] [server.go:241]  http server Running on http://:8080

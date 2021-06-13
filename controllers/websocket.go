@@ -10,7 +10,7 @@ import (
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/remotecommand"
-	"kube_web/utils"
+	"kube_web/common"
 	"net/http"
 	"sync"
 )
@@ -241,9 +241,9 @@ func (self *WsConnection) ServeHTTP(resp http.ResponseWriter, req *http.Request)
 		return
 	}
 	// 获取k8s rest conf配置
-	restConf = utils.K8sConfig
+	restConf = common.K8sConfig
 	// 获取k8s client配置
-	clientset = utils.K8sClient
+	clientset = common.K8sClient
 	// https://172.18.11.25:6443/api/v1/namespaces/default/pods/nginx-deployment-5cbd8757f-d5qvx/exec?command=sh&container=nginx&stderr=true&stdin=true&stdout=true&tty=true
 	if shell == "" { shell = "bash"}
 	sshReq = clientset.CoreV1().RESTClient().Post().

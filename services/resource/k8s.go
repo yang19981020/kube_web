@@ -5,7 +5,7 @@ import (
 	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
-	"kube_web/utils"
+	"kube_web/common"
 )
 
 type K8SService struct {
@@ -13,7 +13,7 @@ type K8SService struct {
 }
 
 func New() K8SService {
-	config := utils.K8sConfig
+	config := common.K8sConfig
 	// create the clientset: *kubernetes.Clientset
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
