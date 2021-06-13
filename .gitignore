@@ -15,8 +15,9 @@
 yarn.lock
 package-lock.json
 
-.kube_web.exe
 kube_web.exe
+kube_web.exe~
+lastupdate.tmp
 # IDEs and editors
 /.idea
 .project

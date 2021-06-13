@@ -42,6 +42,7 @@ func (c *NamespaceController) Post() {
 		c.ServeJSON()
 	}
 	c.Data["json"] = response.Json(200,"ok", namespace)
+	c.ServeJSON()
 }
 func (c *NamespaceController) Delete() {
 	get_namespace := c.GetString("namespace", "default")
@@ -53,6 +54,7 @@ func (c *NamespaceController) Delete() {
 		c.ServeJSON()
 	}
 	c.Data["json"] = response.Json(200,"ok")
+	c.ServeJSON()
 }
 
 

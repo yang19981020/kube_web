@@ -2,10 +2,10 @@ package resource
 
 import (
 	beego "github.com/beego/beego/v2/server/web"
+	"kube_web/common/response"
 	"kube_web/models"
 	m "kube_web/models/resource"
 	s "kube_web/services/resource"
-	"kube_web/common/response"
 )
 
 type ServicesController struct {
@@ -22,6 +22,7 @@ func (c *ServicesController) ListServiceApi() {
 		c.ServeJSON()
 	}
 	c.Data["json"] = response.Json(200,"ok", service_list)
+	c.ServeJSON()
 }
 func (c *ServicesController) Get() {
 	get_namespace := c.GetString("namespace", "default")
@@ -34,6 +35,7 @@ func (c *ServicesController) Get() {
 		c.ServeJSON()
 	}
 	c.Data["json"] = response.Json(200,"ok", service)
+	c.ServeJSON()
 }
 func (c *ServicesController) Post() {
 	get_namespace := c.GetString("namespace", "default")
@@ -52,6 +54,7 @@ func (c *ServicesController) Post() {
 		c.ServeJSON()
 	}
 	c.Data["json"] = response.Json(200,"ok", svc)
+	c.ServeJSON()
 }
 func (c *ServicesController) Delete() {
 	get_namespace := c.GetString("namespace", "default")
@@ -64,4 +67,5 @@ func (c *ServicesController) Delete() {
 		c.ServeJSON()
 	}
 	c.Data["json"] = response.Json(200,"ok")
+	c.ServeJSON()
 }
