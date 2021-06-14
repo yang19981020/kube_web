@@ -69,3 +69,173 @@
 2021/06/13 23:34:57.285  [I] [server.go:241]  http server Running on http://:8080
 2021/06/13 23:35:06.661  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
 2021/06/13 23:35:06.661  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 09:37:13.333  [I] [parser.go:413]  generate router from comments
+2021/06/14 09:37:13.334  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 17:29:43.303  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 17:29:43.303  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 18:45:48.557  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 18:45:48.557  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 18:53:56.214  [I] [parser.go:413]  generate router from comments
+2021/06/14 18:53:56.215  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 19:45:32.335  [I] [parser.go:413]  generate router from comments
+2021/06/14 19:45:32.336  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 19:46:45.876  [I] [parser.go:413]  generate router from comments
+2021/06/14 19:46:45.877  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 19:50:14.251  [I] [parser.go:413]  generate router from comments
+2021/06/14 19:50:14.253  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 19:52:25.555  [I] [parser.go:413]  generate router from comments
+2021/06/14 19:52:25.555  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 19:54:42.988  [I] [parser.go:413]  generate router from comments
+2021/06/14 19:54:42.990  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 19:58:54.074  [I] [parser.go:413]  generate router from comments
+2021/06/14 19:58:54.075  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:05:39.758  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:05:39.760  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:08:49.212  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:08:49.213  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:10:18.706  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:10:18.708  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:11:15.795  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:11:15.797  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:11:26.211  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 20:11:26.211  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:11:29.954  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 20:11:29.955  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:14:09.924  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 20:14:09.924  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:14:39.498  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:14:39.501  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:18:12.182  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:18:12.183  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:18:36.361  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:18:36.362  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:20:12.145  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:20:12.148  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:22:08.984  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:22:08.989  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 20:23:03.681  [I] [parser.go:413]  generate router from comments
+2021/06/14 20:23:03.683  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:58:42.926  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:58:42.926  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:58:46.620  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:58:46.620  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:58:50.864  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:58:50.864  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:58:54.286  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:58:54.286  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:58:57.730  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:58:57.730  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:01.097  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:01.097  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:04.506  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:04.506  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:07.879  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:07.879  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:11.311  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:11.311  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:14.926  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:14.926  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:19.044  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:19.044  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:22.993  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:22.993  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:26.936  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:26.936  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:30.431  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:30.431  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:33.968  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:33.968  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:37.408  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:37.408  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:40.948  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:40.948  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:44.394  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:44.394  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:48.106  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:48.106  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:51.801  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:51.801  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:55.478  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:55.478  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 22:59:59.072  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 22:59:59.072  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:02.546  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:02.546  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:06.135  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:06.135  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:09.781  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:09.781  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:13.262  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:13.262  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:16.785  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:16.785  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:20.572  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:20.572  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:23.875  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:23.875  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:27.504  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:27.504  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:31.067  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:31.067  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:34.662  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:34.662  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:38.275  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:38.275  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:41.814  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:41.814  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:45.469  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:45.469  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:49.092  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:49.092  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:52.606  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:52.606  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:56.226  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:56.226  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:00:59.764  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:00:59.765  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:03.371  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:03.371  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:07.075  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:07.075  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:10.684  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:10.684  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:14.376  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:14.376  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:17.875  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:17.875  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:21.462  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:21.462  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:25.182  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:25.182  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:29.254  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:29.254  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:33.648  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:33.648  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:37.649  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:37.649  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:41.603  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:41.603  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:45.860  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:45.860  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:52.903  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:52.903  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:01:56.938  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:01:56.938  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:02:01.007  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:02:01.007  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:02:05.062  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:02:05.062  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:02:08.930  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:02:08.930  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:02:12.725  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:02:12.725  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:02:16.459  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:02:16.459  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:02:21.207  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:02:21.207  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:02:25.082  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:02:25.082  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:02:28.976  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:02:28.976  [I] [server.go:241]  http server Running on http://:8080
+2021/06/14 23:02:32.692  [I] [parser.go:85]  C:\Users\郝人的实验机\Desktop\kube_web\controllers no changed
+2021/06/14 23:02:32.692  [I] [server.go:241]  http server Running on http://:8080

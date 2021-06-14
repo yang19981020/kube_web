@@ -15,7 +15,7 @@ type BaseController struct {
 	actionName     string
 	UserName       string
 }
-var singinKey,_ = beego.AppConfig.String("HMACKEY")
+var singinKey,_ = beego.AppConfig.String("jwt_token")
 
 // 初始化函数
 func (this *BaseController) Prepare() {

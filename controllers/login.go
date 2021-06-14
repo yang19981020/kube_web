@@ -33,7 +33,7 @@ func (this *Login) Login() {
 	if err == nil {
 		currentUser, err := models.GetUserByUsername(authUser.Username)
 		if err != nil{
-			this.Fail("用户或密码错误",401)
+			this.Fail("用户获取失败",401)
 			return
 		}
 		//校验验证码  clear == true 验证完会删除验证码
