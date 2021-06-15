@@ -15,7 +15,7 @@ func HashAndSalt(pwd []byte) string {
 }
 
 //密码验证
-func ComparePwd(hashPwd string,plainPwd []byte) bool {
+func ParsPwd(hashPwd string,plainPwd []byte) bool {
 	byteHash := []byte(hashPwd)
 	err := bcrypt.CompareHashAndPassword(byteHash,plainPwd) //加密的密码和原来的密码对比
 	if err != nil {

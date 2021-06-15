@@ -16,14 +16,6 @@ type UserController struct {
 	BaseController
 }
 
-func (c *UserController) URLMapping() {
-	c.Mapping("Post", c.Post)
-	c.Mapping("GetAll", c.GetAll)
-	c.Mapping("Put", c.Put)
-	c.Mapping("Delete", c.Delete)
-}
-
-
 func (c *UserController) GetAll() {
 	deptId, _ := c.GetInt("deptId",-1)
 	enabled, _ := c.GetInt("enabled",-1)
@@ -101,10 +93,6 @@ func (c *UserController) Avatar()  {
 	}
 }
 
-// @Title 用户修改密码
-// @Description 用户修改密码
-// @Success 200 {object} controllers.Result
-// @router /updatePass [post]
 func (c *UserController) Pass()  {
 	var model dto.UserPass
 	valid := validation.Validation{}
@@ -121,7 +109,7 @@ func (c *UserController) Pass()  {
 	if user == nil {
 		c.Fail("非法操作",5008)
 	}else {
-		if !common.ComparePwd(user.Password,[]byte(model.OldPass)) {
+		if !common.ParsPwd(user.Password,[]byte(model.OldPass)) {
 			c.Fail("旧密码错误密码错误",5009)
 		}
 		user.Password = common.HashAndSalt([]byte(model.NewPass))

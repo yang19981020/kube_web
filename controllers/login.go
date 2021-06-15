@@ -41,7 +41,7 @@ func (this *Login) Login() {
 			this.Fail("验证码不对",400)
 			return
 		}
-		if !common.ComparePwd(currentUser.Password,[]byte(authUser.Password)) {
+		if !common.ParsPwd(currentUser.Password,[]byte(authUser.Password)) {
 			this.Fail("用户或密码错误",402)
 			return
 		}else{
