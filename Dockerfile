@@ -16,8 +16,7 @@ RUN go build -o kube_web .
 
 FROM debian:stretch-slim
 COPY ./conf /conf
-
-COPY --from=builder /build/bubble /
+COPY --from=builder /build/kube_web /
 
 RUN set -eux; \
 	apt-get update; \
