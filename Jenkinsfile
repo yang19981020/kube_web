@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'jenkins-dep'
+      label 'jenkins_dep'
     }
 
   }
