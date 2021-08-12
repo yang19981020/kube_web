@@ -51,7 +51,6 @@ pipeline {
           picUrl: '',
           singleTitle: '',
           btns: [],
-          btnLayout: '',
           hideAvatar: false
       )
     }
