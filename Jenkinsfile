@@ -46,7 +46,7 @@ pipeline {
           at: [],
           atAll: false,
           title: "success: ${JOB_NAME}",
-          text: ["- 成功构建:${JOB_NAME}项目!\n- 分支:${branch}\n- 数据数据初始化:${iDb}\n- 持续时间:${currentBuild.durationString}\n- 任务:#${BUILD_ID}"],
+          text: ["- 构建always:${JOB_NAME}项目!\n- 分支:${branch}\n- 数据数据初始化:${iDb}\n- 持续时间:${currentBuild.durationString}\n- 任务:#${BUILD_ID}"],
           messageUrl: 'http://www.baidu.com',
           picUrl: '',
           singleTitle: '',
@@ -57,30 +57,53 @@ pipeline {
 
     success {
       echo '------success------'
-//       dingtalk (
-//                 robot: '67e78387-1051-4cff-b1fb-06d3d1e24234',
-//                 type:'MARKDOWN',
-//                 atAll: false,
-//                 title: "success: ${JOB_NAME}",
-//                 messageUrl: 'http://www.baidu.com',
-//                 text: ["- 成功构建:${JOB_NAME}项目!\n- 分支:${branch}\n- 数据数据初始化:${iDb}\n- 持续时间:${currentBuild.durationString}\n- 任务:#${BUILD_ID}"],
-//             )
+      dingtalk (
+          robot: '67e78387-1051-4cff-b1fb-06d3d1e24234',
+          type: 'MARKDOWN',
+          at: [],
+          atAll: false,
+          title: "success: ${JOB_NAME}",
+          text: ["- 成功构建:${JOB_NAME}项目!\n- 分支:${branch}\n- 数据数据初始化:${iDb}\n- 持续时间:${currentBuild.durationString}\n- 任务:#${BUILD_ID}"],
+          messageUrl: 'http://www.baidu.com',
+          picUrl: '',
+          singleTitle: '',
+          btns: [],
+          hideAvatar: false
+      )
     }
 
     failure {
       echo '------failure------'
-//       dingtalk (
-//           robot: '67e78387-1051-4cff-b1fb-06d3d1e24234',
-//           type:'MARKDOWN',
-//           atAll: false,
-//           title: "success: ${JOB_NAME}",
-//           messageUrl: 'http://www.baidu.com',
-//           text: ["- 失败构建:${JOB_NAME}项目!\n- 分支:${branch}\n- 数据数据初始化:${iDb}\n- 持续时间:${currentBuild.durationString}\n- 任务:#${BUILD_ID}"],
-//       )
+      dingtalk (
+          robot: '67e78387-1051-4cff-b1fb-06d3d1e24234',
+          type: 'MARKDOWN',
+          at: [],
+          atAll: false,
+          title: "success: ${JOB_NAME}",
+          text: ["- 构建failure:${JOB_NAME}项目!\n- 分支:${branch}\n- 数据数据初始化:${iDb}\n- 持续时间:${currentBuild.durationString}\n- 任务:#${BUILD_ID}"],
+          messageUrl: 'http://www.baidu.com',
+          picUrl: '',
+          singleTitle: '',
+          btns: [],
+          hideAvatar: false
+      )
     }
 
     unstable {
       echo '-----unstable-------'
+      dingtalk (
+          robot: '67e78387-1051-4cff-b1fb-06d3d1e24234',
+          type: 'MARKDOWN',
+          at: [],
+          atAll: false,
+          title: "success: ${JOB_NAME}",
+          text: ["- 构建unstable:${JOB_NAME}项目!\n- 分支:${branch}\n- 数据数据初始化:${iDb}\n- 持续时间:${currentBuild.durationString}\n- 任务:#${BUILD_ID}"],
+          messageUrl: 'http://www.baidu.com',
+          picUrl: '',
+          singleTitle: '',
+          btns: [],
+          hideAvatar: false
+      )
     }
 
   }
