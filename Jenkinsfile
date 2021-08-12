@@ -45,7 +45,7 @@ pipeline {
     success {
       echo '------success------'
       dingtalk (
-                robot: 'alert-msg',
+//                 robot: 'alert-msg',
                 type:'MARKDOWN',
                 atAll: false,
                 title: "success: ${JOB_NAME}",
@@ -57,7 +57,7 @@ pipeline {
     failure {
       echo '------failure------'
       dingtalk (
-          robot: 'alert-msg',
+//           robot: 'alert-msg',
           type:'MARKDOWN',
           atAll: false,
           title: "success: ${JOB_NAME}",
