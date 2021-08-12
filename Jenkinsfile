@@ -39,19 +39,19 @@ pipeline {
   }
   post {
     always {
-      echo '------------'
+      echo '------always------'
     }
 
     success {
-      echo '------------'
+      echo '------success------'
     }
 
     failure {
-      echo '------------'
+      echo '------failure------'
     }
 
     unstable {
-      echo '------------'
+      echo '-----unstable-------'
     }
 
   }
