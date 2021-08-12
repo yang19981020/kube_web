@@ -37,4 +37,18 @@ pipeline {
     }
 
   }
+  post {
+    always {
+            echo "------------"
+    }
+    success {
+            echo "------------"
+    }
+    failure {
+            echo "------------"
+    }
+    unstable {
+            echo "------------"
+    }
+    }
 }
