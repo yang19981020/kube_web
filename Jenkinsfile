@@ -47,7 +47,7 @@ spec:
         name: "volume-hosts"
         readOnly: false    
         
-  - name: "kubelet"
+  - name: "kubectl"
     image: "registry.cn-beijing.aliyuncs.com/citools/kubectl:self-1.17"
     imagePullPolicy: "IfNotPresent"
     tty: true
