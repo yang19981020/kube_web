@@ -6,7 +6,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    jenkins-slave: build
+    test: build
 spec:
   containers:
   - args: [\'$(JENKINS_SECRET)\', \'$(JENKINS_NAME)\']
