@@ -82,13 +82,7 @@ spec:
         path: "/opt/m2"
     - name: "volume-kubeconfig"
       secret:
-        secretName: "multi-kube-config"  
-
-  - name: busybox
-    image: busybox:latest
-    command:
-    - cat
-    tty: true
+        secretName: "multi-kube-config"
 """
     }
   }
