@@ -7,6 +7,7 @@ kind: Pod
 metadata:
   labels:
     test: build
+  namespace: default
 spec:
   containers:
   - args: [\'$(JENKINS_SECRET)\', \'$(JENKINS_NAME)\']
@@ -68,7 +69,6 @@ spec:
       - mountPath: "/etc/hosts"
         name: "volume-hosts"
         readOnly: false  
-
   - name: "kubelet"
     image: "registry.cn-beijing.aliyuncs.com/citools/kubectl:self-1.17"
     imagePullPolicy: "IfNotPresent"
@@ -84,28 +84,27 @@ spec:
         name: "volume-hosts"
         readOnly: false    
     
-    restartPolicy: "Never"
-    
-    nodeSelector:
-      kubernetes.io/hostname: "192.168.0.3"
-    securityContext: {}
+  securityContext: {}
+  nodeSelector:
+    kubernetes.io/hostname: "192.168.0.3"
+  restartPolicy: "Never"
    
-    volumes:
-      - hostPath:
-          path: "/var/run/docker.sock"
-        name: "volume-docker"
-      - hostPath:
-          path: "/usr/share/zoneinfo/Asia/Shanghai"
-        name: "volume-2"
-      - hostPath:
-          path: "/etc/hosts"
-        name: "volume-hosts"
-      - name: "volume-maven-repo"
-        hostPath:
-          path: "/opt/m2"
-      - name: "volume-kubeconfig"
-        secret:
-          secretName: "multi-kube-config"
+  volumes:
+    - hostPath:
+        path: "/var/run/docker.sock"
+      name: "volume-docker"
+    - hostPath:
+        path: "/usr/share/zoneinfo/Asia/Shanghai"
+      name: "volume-2"
+    - hostPath:
+        path: "/etc/hosts"
+      name: "volume-hosts"
+    - name: "volume-maven-repo"
+      hostPath:
+        path: "/opt/m2"
+    - name: "volume-kubeconfig"
+      secret:
+        secretName: "multi-kube-config"
 """
     }
   }
