@@ -1,4 +1,3 @@
-#------------------------------------------------------------------------------------------
 pipeline {
   agent {
         kubernetes {
@@ -33,7 +32,6 @@ spec:
         value: "en_US.UTF-8"
       - name: "LANG"
         value: "en_US.UTF-8"
-#-----------------------------------------
   - name: "docker"
     image: "registry.cn-beijing.aliyuncs.com/citools/docker:19.03.9-git"
     imagePullPolicy: "IfNotPresent"
@@ -48,7 +46,7 @@ spec:
       - mountPath: "/etc/hosts"
         name: "volume-hosts"
         readOnly: false    
-#-----------------------------------------
+        
   - name: "kubelet"
     image: "registry.cn-beijing.aliyuncs.com/citools/kubectl:self-1.17"
     imagePullPolicy: "IfNotPresent"
@@ -85,7 +83,7 @@ spec:
     - name: "volume-kubeconfig"
       secret:
         secretName: "multi-kube-config"  
-#-----------------------------------------
+
   - name: busybox
     image: busybox:latest
     command:
