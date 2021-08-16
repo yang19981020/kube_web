@@ -108,10 +108,10 @@ spec:
       }
     }
 
-    stage('kubelet') {
+    stage('kubectl') {
       steps {
         container('docker') {
-          sh 'kubelet get pod'
+          sh 'kubectl get pod'
         }
       }
     }
