@@ -89,12 +89,6 @@ spec:
   
 
   stages {
-    stage('clon') {
-      steps {
-        echo 'clon'
-      }
-    }
-
     stage('run Maven') {
       steps {
         container('maven') {
