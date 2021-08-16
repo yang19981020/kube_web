@@ -1,3 +1,4 @@
+#------------------------------------------------------------------------------------------
 pipeline {
   agent {
         kubernetes {
@@ -7,31 +8,9 @@ kind: Pod
 metadata:
   labels:
     test: build
-  namespace: default
 spec:
   containers:
-  - args: [\'$(JENKINS_SECRET)\', \'$(JENKINS_NAME)\']
-    image: 'registry.cn-beijing.aliyuncs.com/citools/jnlp:alpine'
-    name: jnlp
-    imagePullPolicy: IfNotPresent
-    volumeMounts:
-      - mountPath: "/etc/localtime"
-        name: "volume-2"
-        readOnly: false
-      - mountPath: "/etc/hosts"
-        name: "volume-hosts"
-        readOnly: false
-    command:
-    - "cat"
-    env:
-      - name: "LANGUAGE"
-        value: "en_US:en"
-      - name: "LC_ALL"
-        value: "en_US.UTF-8"
-      - name: "LANG"
-        value: "en_US.UTF-8"
-        
-  - name: "maven"
+  - name: maven
     image: registry.cn-hangzhou.aliyuncs.com/haozheyu/maven:ora8u201.mvn3.2.5
     command:
     - cat
@@ -54,7 +33,7 @@ spec:
         value: "en_US.UTF-8"
       - name: "LANG"
         value: "en_US.UTF-8"
-        
+#-----------------------------------------
   - name: "docker"
     image: "registry.cn-beijing.aliyuncs.com/citools/docker:19.03.9-git"
     imagePullPolicy: "IfNotPresent"
@@ -68,7 +47,8 @@ spec:
         readOnly: false
       - mountPath: "/etc/hosts"
         name: "volume-hosts"
-        readOnly: false  
+        readOnly: false    
+#-----------------------------------------
   - name: "kubelet"
     image: "registry.cn-beijing.aliyuncs.com/citools/kubectl:self-1.17"
     imagePullPolicy: "IfNotPresent"
@@ -104,10 +84,18 @@ spec:
         path: "/opt/m2"
     - name: "volume-kubeconfig"
       secret:
-        secretName: "multi-kube-config"
+        secretName: "multi-kube-config"  
+#-----------------------------------------
+  - name: busybox
+    image: busybox:latest
+    command:
+    - cat
+    tty: true
 """
     }
   }
+  
+
   stages {
     stage('clon') {
       steps {
