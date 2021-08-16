@@ -148,7 +148,6 @@ spec:
         echo 'test'
       }
     }
-
   }
   post {
     success {
