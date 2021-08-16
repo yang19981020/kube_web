@@ -55,6 +55,8 @@ spec:
       - mountPath: "/etc/localtime"
         name: "volume-2"
         readOnly: false
+      - mountPath: "/var/run/docker.sock"
+        name: "volume-docker"        
       - mountPath: "/mnt/.kube/"
         name: "volume-kubeconfig"
         readOnly: false
