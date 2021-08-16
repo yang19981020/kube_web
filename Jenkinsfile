@@ -108,9 +108,9 @@ spec:
       }
     }
 
-    stage('kubectl') {
+    stage('kubectl set image') {
       steps {
-        container('docker') {
+        container('kubectl') {
           sh 'kubectl get pod'
         }
       }
