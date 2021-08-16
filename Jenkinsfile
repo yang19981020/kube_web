@@ -167,7 +167,7 @@ spec:
     }
 
     failure {
-        echo "-------failure---------------"
+        echo "-------failure1---------------"
         dingtalk (
             robot: 'd211837b-0ebb-48e0-b7fe-00fc0a44ae3b',
             type: 'MARKDOWN',
