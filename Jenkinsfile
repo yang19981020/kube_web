@@ -30,7 +30,7 @@ spec:
       - name: "LANG"
         value: "en_US.UTF-8"
         
-    name: "maven"
+  - name: "maven"
     image: registry.cn-hangzhou.aliyuncs.com/haozheyu/maven:ora8u201.mvn3.2.5
     command:
     - cat
@@ -54,7 +54,7 @@ spec:
       - name: "LANG"
         value: "en_US.UTF-8"
         
-    name: "docker"
+  - name: "docker"
     image: "registry.cn-beijing.aliyuncs.com/citools/docker:19.03.9-git"
     imagePullPolicy: "IfNotPresent"
     tty: true
@@ -69,7 +69,7 @@ spec:
         name: "volume-hosts"
         readOnly: false  
 
-    name: "kubelet"
+  - name: "kubelet"
     image: "registry.cn-beijing.aliyuncs.com/citools/kubectl:self-1.17"
     imagePullPolicy: "IfNotPresent"
     tty: true
